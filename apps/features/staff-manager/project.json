@@ -1,0 +1,119 @@
+{
+  "projectType": "application",
+  "sourceRoot": "apps/features/staff-manager/src",
+  "prefix": "salus",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:webpack-browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/features/staff-manager",
+        "index": "apps/features/staff-manager/src/index.html",
+        "main": "apps/features/staff-manager/src/main.ts",
+        "polyfills": "apps/features/staff-manager/src/polyfills.ts",
+        "tsConfig": "apps/features/staff-manager/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/features/staff-manager/src/favicon.ico",
+          "apps/features/staff-manager/src/assets"
+        ],
+        "styles": ["apps/features/staff-manager/src/styles.scss"],
+        "scripts": [],
+        "customWebpackConfig": {
+          "path": "apps/features/staff-manager/webpack.config.js"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/features/staff-manager/src/environments/environment.ts",
+              "with": "apps/features/staff-manager/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all",
+          "customWebpackConfig": {
+            "path": "apps/features/staff-manager/webpack.prod.config.js"
+          }
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@nrwl/angular:webpack-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "features-staff-manager:build:production"
+        },
+        "development": {
+          "browserTarget": "features-staff-manager:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 4202,
+        "publicHost": "http://localhost:4202"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "features-staff-manager:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/features/staff-manager/**/*.ts",
+          "apps/features/staff-manager/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/features/staff-manager"],
+      "options": {
+        "jestConfig": "apps/features/staff-manager/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "serve-static": {
+      "executor": "@nrwl/angular:file-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "features-staff-manager:build",
+        "port": 4202
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "features-staff-manager:build:development"
+        },
+        "production": {
+          "buildTarget": "features-staff-manager:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}

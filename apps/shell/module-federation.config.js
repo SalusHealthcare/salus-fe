@@ -1,4 +1,4 @@
 module.exports = {
   name: 'shell',
-  remotes: [],
+  remotes: ['features-structure-manager', 'features-staff-manager'],
 };

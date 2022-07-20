@@ -1,0 +1,119 @@
+{
+  "projectType": "application",
+  "sourceRoot": "apps/features/structure-manager/src",
+  "prefix": "salus",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:webpack-browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/features/structure-manager",
+        "index": "apps/features/structure-manager/src/index.html",
+        "main": "apps/features/structure-manager/src/main.ts",
+        "polyfills": "apps/features/structure-manager/src/polyfills.ts",
+        "tsConfig": "apps/features/structure-manager/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/features/structure-manager/src/favicon.ico",
+          "apps/features/structure-manager/src/assets"
+        ],
+        "styles": ["apps/features/structure-manager/src/styles.scss"],
+        "scripts": [],
+        "customWebpackConfig": {
+          "path": "apps/features/structure-manager/webpack.config.js"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/features/structure-manager/src/environments/environment.ts",
+              "with": "apps/features/structure-manager/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all",
+          "customWebpackConfig": {
+            "path": "apps/features/structure-manager/webpack.prod.config.js"
+          }
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@nrwl/angular:webpack-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "features-structure-manager:build:production"
+        },
+        "development": {
+          "browserTarget": "features-structure-manager:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 4201,
+        "publicHost": "http://localhost:4201"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "features-structure-manager:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/features/structure-manager/**/*.ts",
+          "apps/features/structure-manager/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/features/structure-manager"],
+      "options": {
+        "jestConfig": "apps/features/structure-manager/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "serve-static": {
+      "executor": "@nrwl/angular:file-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "features-structure-manager:build",
+        "port": 4201
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "features-structure-manager:build:development"
+        },
+        "production": {
+          "buildTarget": "features-structure-manager:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}

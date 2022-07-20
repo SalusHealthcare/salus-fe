@@ -1,6 +1,7 @@
 import { Component, OnInit, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'salus-navigation',
@@ -14,7 +15,7 @@ export class NavigationComponent implements OnInit {
 }
 
 @NgModule({
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, RouterModule],
   declarations: [NavigationComponent],
   exports: [NavigationComponent],
 })

@@ -2,6 +2,10 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "features-staff-manager": "apps/features/staff-manager",
+    "features-staff-manager-e2e": "apps/features/staff-manager-e2e",
+    "features-structure-manager": "apps/features/structure-manager",
+    "features-structure-manager-e2e": "apps/features/structure-manager-e2e",
     "shell": "apps/shell",
     "shell-e2e": "apps/shell-e2e"
   }
