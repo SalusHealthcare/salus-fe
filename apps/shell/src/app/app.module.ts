@@ -6,24 +6,46 @@ import { RouterModule } from '@angular/router';
 import { HeaderComponentModule } from './features/header/header.component';
 import { NavigationComponentModule } from './features/navigation/navigation.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MainComponent } from './pages/main/main.component';
+import { GraphqlModule } from '@salus/graphql';
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, MainComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(
       [
         {
-          path: 'structure',
+          path: 'auth',
           loadChildren: () =>
-            import('features-structure-manager/Module').then(
+            import('features-authentication/Module').then(
               (m) => m.RemoteEntryModule
             ),
         },
         {
-          path: 'staff',
+          path: 'app',
+          component: MainComponent,
+          children: [
+            {
+              path: 'structure',
+              loadChildren: () =>
+                import('features-structure-manager/Module').then(
+                  (m) => m.RemoteEntryModule
+                ),
+            },
+            {
+              path: 'staff',
+              loadChildren: () =>
+                import('features-staff-manager/Module').then(
+                  (m) => m.RemoteEntryModule
+                ),
+            },
+          ],
+        },
+        {
+          path: 'features-videoroom',
           loadChildren: () =>
-            import('features-staff-manager/Module').then(
+            import('features-videoroom/Module').then(
               (m) => m.RemoteEntryModule
             ),
         },
@@ -32,6 +54,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ),
     HeaderComponentModule,
     NavigationComponentModule,
+    GraphqlModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -4,12 +4,14 @@
     <mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{ row.name }} </mat-cell>
+        <mat-cell *matCellDef="let row">
+          {{ row.firstName }} {{ row.lastName }}</mat-cell
+        >
       </ng-container>
 
       <ng-container matColumnDef="role">
         <mat-header-cell *matHeaderCellDef>Role</mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{ row.role }} </mat-cell>
+        <mat-cell *matCellDef="let row"> {{ row.roles }} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="department">
@@ -19,7 +21,7 @@
 
       <ng-container matColumnDef="phone">
         <mat-header-cell *matHeaderCellDef>Phone</mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{ row.phone }} </mat-cell>
+        <mat-cell *matCellDef="let row"> {{ row.telephoneNumber }} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="actions">

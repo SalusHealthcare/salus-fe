@@ -1,0 +1,181 @@
+<div class="w-full px-6 py-12 h-full mx-auto">
+  <div class="flex justify-center items-center h-full gap-8 text-gray-800">
+    <div class="w-2/5 lg:ml-20 flex flex-col gap-8">
+      <img src="assets/Logo.png" class="w-1/3 h-auto mx-auto" />
+
+      <form class="flex flex-col gap-2" [formGroup]="loginForm">
+        <!-- Name input -->
+        <div class="flex flex-row items-center gap-2">
+          <div class="form-control w-full">
+            <label class="label">
+              <span class="label-text font-semibold text-gray-600"
+                >Firstname</span
+              >
+            </label>
+            <input
+              type="text"
+              class="form-control input input-bordered input-sm w-full"
+              placeholder="Firstname"
+            />
+          </div>
+          <div class="form-control w-full">
+            <label class="label">
+              <span class="label-text font-semibold text-gray-600"
+                >Lastname</span
+              >
+            </label>
+            <input
+              type="text"
+              class="form-control input input-bordered input-sm w-full"
+              placeholder="Lastname"
+            />
+          </div>
+        </div>
+
+        <!-- Birthdate and Taxcode input -->
+        <div class="flex flex-row items-center gap-3">
+          <div class="form-control w-full">
+            <label class="label">
+              <span class="label-text font-semibold text-gray-600"
+                >Taxcode</span
+              >
+            </label>
+            <input
+              type="text"
+              class="form-control input input-bordered input-sm w-full"
+              placeholder="Taxcode"
+            />
+          </div>
+          <div class="form-control w-full">
+            <label class="label">
+              <span class="label-text font-semibold text-gray-600"
+                >Birthdate</span
+              >
+            </label>
+            <input
+              type="date"
+              class="input input-bordered input-sm w-full"
+              placeholder="Birthdate"
+            />
+          </div>
+        </div>
+
+        <!-- Residence input -->
+        <div class="flex flex-col">
+          <label class="label">
+            <span class="label-text font-semibold text-gray-600"
+              >Residence</span
+            >
+          </label>
+          <div class="flex flex-row items-center gap-4">
+            <input
+              type="text"
+              class="form-control input input-bordered input-sm w-3/5"
+              placeholder="Address"
+            />
+            <input
+              type="text"
+              class="form-control input input-bordered input-sm w-1/5"
+              placeholder="City"
+            />
+            <input
+              type="text"
+              class="form-control input input-bordered input-sm w-1/5"
+              placeholder="Province"
+            />
+          </div>
+        </div>
+
+        <!-- Domicile input -->
+        <div class="flex flex-col">
+          <label class="label">
+            <span class="label-text font-semibold text-gray-600">Domicile</span>
+          </label>
+          <div class="flex flex-row items-center gap-4">
+            <input
+              type="text"
+              class="form-control input input-bordered input-sm w-3/5"
+              placeholder="Address"
+            />
+            <input
+              type="text"
+              class="form-control input input-bordered input-sm w-1/5"
+              placeholder="City"
+            />
+            <input
+              type="text"
+              class="form-control input input-bordered input-sm w-1/5"
+              placeholder="Province"
+            />
+          </div>
+        </div>
+
+        <!-- Telephone input -->
+        <div>
+          <div class="form-control w-full">
+            <label class="label">
+              <span class="label-text font-semibold text-gray-600"
+                >Telephone</span
+              >
+            </label>
+            <input
+              type="tel"
+              class="form-control input input-bordered input-sm w-full"
+              placeholder="Telephone"
+            />
+          </div>
+        </div>
+
+        <!-- Email input -->
+        <div>
+          <div class="form-control w-full">
+            <label class="label">
+              <span class="label-text font-semibold text-gray-600">Email</span>
+            </label>
+            <input
+              type="email"
+              class="form-control input input-bordered input-sm w-full"
+              placeholder="Email address"
+              formControlName="email"
+            />
+          </div>
+        </div>
+
+        <!-- Password input -->
+        <div>
+          <div class="form-control w-full">
+            <label class="label">
+              <span class="label-text font-semibold text-gray-600"
+                >Password</span
+              >
+            </label>
+            <input
+              type="password"
+              class="fform-control input input-bordered input-sm w-full"
+              placeholder="Password"
+              formControlName="password"
+            />
+          </div>
+        </div>
+
+        <div class="flex justify-center items-center">
+          <a href="#!" class="text-accent duration-200 transition ease-in-out"
+            >Forgot password?</a
+          >
+        </div>
+
+        <!-- Submit button -->
+        <button
+          type="submit"
+          class="btn btn-primary btn-block"
+          (click)="login()"
+        >
+          Login/Sign in
+        </button>
+      </form>
+    </div>
+    <div class="w-3/5 mb-12 md:mb-0">
+      <img src="assets/welcome.png" class="w-full" alt="Phone image" />
+    </div>
+  </div>
+</div>
