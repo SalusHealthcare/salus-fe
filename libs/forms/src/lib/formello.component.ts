@@ -7,6 +7,7 @@ import {
   QueryList,
   TemplateRef,
   ViewChildren,
+  ViewEncapsulation,
 } from '@angular/core';
 import { MatFormField } from '@angular/material/form-field';
 import {
@@ -29,6 +30,7 @@ import {
   selector: 'formello',
   templateUrl: 'formello.component.html',
   styleUrls: ['formello.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class FormelloComponent<T> implements OnInit {
   @Input()

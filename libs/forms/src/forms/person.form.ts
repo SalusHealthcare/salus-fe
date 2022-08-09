@@ -62,7 +62,7 @@ export class PersonFormModel {
   type = new FormelloField(
     'type',
     'Type',
-    '',
+    'staff',
     FormelloFieldTypes.SELECT,
     [],
     PersonTypes
@@ -130,26 +130,50 @@ export class PersonFormModel {
   );
 }
 
+export class PersonFormConfigStaff implements IFormelloConfig<PersonFormModel> {
+  model: PersonFormModel;
+  rows: Array<IFormelloRow>;
+
+  constructor(model: PersonFormModel) {
+    this.model = model;
+    this.model.type.options = this.model.type.options.slice(0, 2);
+    this.rows = [
+      {
+        fields: [this.model.type, this.model.email, this.model.password],
+      },
+      {
+        fields: [this.model.firstName, this.model.lastName],
+      },
+      {
+        fields: [
+          this.model.taxCode,
+          this.model.birthDate,
+          this.model.telephoneNumber,
+        ],
+      },
+    ];
+  }
+}
+
 export class PersonFormConfigMedic implements IFormelloConfig<PersonFormModel> {
   model: PersonFormModel;
   rows: Array<IFormelloRow>;
 
   constructor(model: PersonFormModel) {
     this.model = model;
+    this.model.type.options = this.model.type.options.slice(0, 2);
     this.rows = [
       {
-        fields: [
-          this.model.firstName,
-          this.model.lastName,
-          this.model.taxCode,
-          this.model.birthDate,
-        ],
+        fields: [this.model.type, this.model.email, this.model.password],
+      },
+      {
+        fields: [this.model.firstName, this.model.lastName],
       },
       {
         fields: [
+          this.model.taxCode,
+          this.model.birthDate,
           this.model.telephoneNumber,
-          this.model.email,
-          this.model.password,
         ],
       },
       {

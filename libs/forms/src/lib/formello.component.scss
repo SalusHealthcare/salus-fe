@@ -49,3 +49,25 @@
 mat-error{
     color: #d87a18 !important
 }
+
+.mat-form-field-wrapper {
+    padding-bottom: 0.5em !important;
+  }
+  
+  .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0.5em 0 !important;
+  }
+  
+  .mat-form-field-appearance-outline .mat-form-field-label {
+    top: 1.34375em;
+  }
+  
+  .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float
+    .mat-form-field-label,
+  .mat-form-field-appearance-outline.mat-form-field-can-float
+    .mat-input-server:focus
+    + .mat-form-field-label-wrapper
+    .mat-form-field-label {
+    top: 1.875em;
+  }
+  

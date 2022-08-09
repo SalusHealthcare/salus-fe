@@ -1,14 +1,21 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   DomicileFormConfig,
   DomicileFormModel,
   Formello,
   PersonFormConfigMedic,
+  PersonFormConfigStaff,
   PersonFormModel,
   ResidenceFormConfig,
   ResidenceFormModel,
 } from '@salus/forms';
-import { CreateMedicInput, IUser, StaffService } from '@salus/graphql';
+import {
+  CreateMedicInput,
+  CreatePersonInput,
+  IUser,
+  StaffService,
+} from '@salus/graphql';
 
 @Component({
   selector: 'salus-create-staff',
@@ -25,10 +32,11 @@ export class CreateStaffComponent implements OnInit {
     private personFormModel: PersonFormModel,
     private residenceFormModel: ResidenceFormModel,
     private domicileFormModel: DomicileFormModel,
-    private staffService: StaffService
+    private staffService: StaffService,
+    private router: Router
   ) {
     this.newStaffForm = new Formello(
-      new PersonFormConfigMedic(this.personFormModel)
+      new PersonFormConfigStaff(this.personFormModel)
     );
 
     this.residenceForm = new Formello(
@@ -40,16 +48,29 @@ export class CreateStaffComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log();
+    this.personFormModel.type.control.valueChanges.subscribe((value) => {
+      switch (value) {
+        case 'medic':
+          this.newStaffForm.changeConfiguration(
+            new PersonFormConfigMedic(this.personFormModel)
+          );
+          break;
+        case 'staff':
+          this.newStaffForm.changeConfiguration(
+            new PersonFormConfigStaff(this.personFormModel)
+          );
+          break;
+      }
+    });
   }
 
-  createMedic() {
+  create() {
     const userInfo: IUser = {
       email: this.newStaffForm.getForm().get('email')?.value,
       password: this.newStaffForm.getForm().get('password')?.value,
     };
 
-    const personInfo: CreateMedicInput = {
+    const personInfo: CreatePersonInput | CreateMedicInput = {
       firstName: this.newStaffForm.getForm().get('firstName')?.value,
       lastName: this.newStaffForm.getForm().get('lastName')?.value,
       birthDate: this.newStaffForm.getForm().get('birthDate')?.value,
@@ -58,14 +79,43 @@ export class CreateStaffComponent implements OnInit {
         ?.value,
       residence: this.residenceForm.getForm().value,
       domicile: this.domicileForm.getForm().value,
-      medicalSpeciality: this.newStaffForm.getForm().get('medicalSpeciality')
-        ?.value,
     };
 
-    this.staffService
-      .createMedic({ userInfo, personInfo })
-      .subscribe((result) => {
-        console.log(result);
-      });
+    switch (this.personFormModel.type.control.value) {
+      case 'medic':
+        (personInfo as CreateMedicInput).medicalSpeciality = this.newStaffForm
+          .getForm()
+          .get('medicalSpecialty')?.value;
+        this.staffService
+          .createMedic({ userInfo, personInfo: personInfo as CreateMedicInput })
+          .subscribe((result) => {
+            if (result.data?.createMedicUser) {
+              this.router.navigate(['app', 'staff']);
+            } else {
+              //start error dialog
+            }
+          });
+        break;
+      case 'staff':
+        this.staffService
+          .createStaff({
+            userInfo,
+            personInfo: personInfo as CreatePersonInput,
+          })
+          .subscribe((result) => {
+            if (result.data?.createStaffUser) {
+              console.log('createStaffUser', result.data.createStaffUser);
+              this.router.navigate(['app', 'staff']);
+            } else {
+              //start error dialog
+            }
+          });
+        break;
+    }
+  }
+
+  domicileAsResidence() {
+    this.domicileForm.getForm().patchValue(this.residenceForm.getForm().value);
+    this.domicileForm.getForm().updateValueAndValidity({});
   }
 }

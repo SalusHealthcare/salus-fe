@@ -1,12 +1,17 @@
 <div class="flex flex-row justify-between">
   <h3 class="text-xl">Add Staff</h3>
 </div>
-<div class="flex flex-col mt-2 h-full overflow-y-auto pb-12">
+<div class="flex flex-col mt-2 h-full overflow-y-auto pb-12 pr-4">
   <p class="text-lg">Person Data</p>
   <formello [formello]="newStaffForm"></formello>
   <p class="text-lg">Residence Data</p>
   <formello [formello]="residenceForm"></formello>
-  <p class="text-lg">Domicile Data</p>
+  <div class="flex flex-row justify-between items-center">
+    <p class="text-lg">Domicile Data</p>
+    <button class="btn btn-ghost" (click)="domicileAsResidence()">
+      Same as residence
+    </button>
+  </div>
   <formello [formello]="domicileForm"></formello>
-  <button class="btn btn-primary" (click)="createMedic()">Create</button>
+  <button class="btn btn-primary" (click)="create()">Create</button>
 </div>

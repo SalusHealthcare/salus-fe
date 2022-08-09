@@ -9,6 +9,13 @@ export type CreateMedicInput = CreatePersonInput & {
   medicalSpeciality: MedicalSpeciality;
 };
 
+export interface ICreateStaffResponse {
+  createStaffUser: {
+    token: string;
+    person: IPerson;
+  };
+}
+
 export interface ICreateMedicResponse {
   createMedicUser: {
     token: string;
