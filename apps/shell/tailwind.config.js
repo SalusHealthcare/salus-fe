@@ -7,6 +7,7 @@ module.exports = {
     ...createGlobPatternsForDependencies(__dirname),
     join(__dirname, '../features/structure-manager/src/**/*.html'),
     join(__dirname, '../features/authentication/src/**/*.html'),
+    join(__dirname, '../features/staff-manager/src/**/*.html'),
     'src/app/*.html',
     'src/app/features/**/*.html',
   ],

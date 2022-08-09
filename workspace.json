@@ -6,10 +6,9 @@
     "features-authentication-e2e": "apps/features/authentication-e2e",
     "features-staff-manager": "apps/features/staff-manager",
     "features-staff-manager-e2e": "apps/features/staff-manager-e2e",
-    "features-structure-manager": "apps/features/structure-manager",
-    "features-structure-manager-e2e": "apps/features/structure-manager-e2e",
     "features-videoroom": "apps/features/videoroom",
     "features-videoroom-e2e": "apps/features/videoroom-e2e",
+    "forms": "libs/forms",
     "graphql": "libs/graphql",
     "shell": "apps/shell",
     "shell-e2e": "apps/shell-e2e"

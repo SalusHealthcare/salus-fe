@@ -8,6 +8,7 @@ import { NavigationComponentModule } from './features/navigation/navigation.comp
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainComponent } from './pages/main/main.component';
 import { GraphqlModule } from '@salus/graphql';
+import { MatNativeDateModule } from '@angular/material/core';
 @NgModule({
   declarations: [AppComponent, MainComponent],
   imports: [
@@ -27,18 +28,16 @@ import { GraphqlModule } from '@salus/graphql';
           component: MainComponent,
           children: [
             {
-              path: 'structure',
-              loadChildren: () =>
-                import('features-structure-manager/Module').then(
-                  (m) => m.RemoteEntryModule
-                ),
-            },
-            {
               path: 'staff',
               loadChildren: () =>
                 import('features-staff-manager/Module').then(
                   (m) => m.RemoteEntryModule
                 ),
+            },
+            {
+              path: '',
+              pathMatch: 'full',
+              redirectTo: 'staff',
             },
           ],
         },
@@ -55,6 +54,7 @@ import { GraphqlModule } from '@salus/graphql';
     HeaderComponentModule,
     NavigationComponentModule,
     GraphqlModule,
+    MatNativeDateModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

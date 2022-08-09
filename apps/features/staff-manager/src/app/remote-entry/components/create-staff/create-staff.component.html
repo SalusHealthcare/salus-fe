@@ -1,0 +1,12 @@
+<div class="flex flex-row justify-between">
+  <h3 class="text-xl">Add Staff</h3>
+</div>
+<div class="flex flex-col mt-2 h-full overflow-y-auto pb-12">
+  <p class="text-lg">Person Data</p>
+  <formello [formello]="newStaffForm"></formello>
+  <p class="text-lg">Residence Data</p>
+  <formello [formello]="residenceForm"></formello>
+  <p class="text-lg">Domicile Data</p>
+  <formello [formello]="domicileForm"></formello>
+  <button class="btn btn-primary" (click)="createMedic()">Create</button>
+</div>

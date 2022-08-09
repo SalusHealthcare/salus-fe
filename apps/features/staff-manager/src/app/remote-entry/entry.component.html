@@ -1,36 +1,16 @@
-<div class="card w-full h-full bg-base-100 shadow-xl rounded-xl">
-  <div class="card-body">
-    <h3 class="text-xl">Staff</h3>
-    <mat-table [dataSource]="dataSource">
-      <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-        <mat-cell *matCellDef="let row">
-          {{ row.firstName }} {{ row.lastName }}</mat-cell
-        >
-      </ng-container>
+<div
+  class="card w-full h-full bg-base-100 shadow-xl rounded-xl overflow-hidden"
+>
+  <div class="card-body overflow-hidden">
+    <div class="text-sm breadcrumbs">
+      <ul>
+        <li><a routerLink="../">Staff Manager</a></li>
+        <li>
+          <a routerLink="create">Add Staff</a>
+        </li>
+      </ul>
+    </div>
 
-      <ng-container matColumnDef="role">
-        <mat-header-cell *matHeaderCellDef>Role</mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{ row.roles }} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="department">
-        <mat-header-cell *matHeaderCellDef>Department</mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{ row.department }} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="phone">
-        <mat-header-cell *matHeaderCellDef>Phone</mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{ row.telephoneNumber }} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="actions">
-        <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
-        <mat-cell *matCellDef="let row"> </mat-cell>
-      </ng-container>
-
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-    </mat-table>
+    <router-outlet></router-outlet>
   </div>
 </div>

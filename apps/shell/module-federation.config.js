@@ -1,7 +1,6 @@
 module.exports = {
   name: 'shell',
   remotes: [
-    'features-structure-manager',
     'features-staff-manager',
     'features-authentication',
     'features-videoroom',

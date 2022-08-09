@@ -25,7 +25,6 @@
     "@nrwl/angular": "^14.4.3",
     "apollo-angular": "^3.0.1",
     "daisyui": "^2.19.0",
-    "formello": "^0.1.30-beta",
     "graphql": "^16.5.0",
     "rxjs": "~7.4.0",
     "tslib": "^2.0.0",

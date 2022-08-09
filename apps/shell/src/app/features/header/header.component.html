@@ -1,8 +1,11 @@
 <div class="w-full h-20 bg-base-100 flex items-center">
   <div class="navbar h-full">
     <div class="flex-1 pl-2">
-      <h2 class="normal-case text-xl">
-        Welcome, <span class="font-semibold">GENERIC_HOSPITAL</span>
+      <h2 class="normal-case text-xl" *ngIf="loggedUser; else adminTitle">
+        Welcome,
+        <span class="font-semibold"
+          >{{ loggedUser.firstName }} {{ loggedUser.lastName }}</span
+        >
       </h2>
     </div>
     <div class="flex-none gap-2">
@@ -26,9 +29,13 @@
             </a>
           </li>
           <li><a>Settings</a></li>
-          <li><a>Logout</a></li>
+          <li (click)="logout()"><a>Logout</a></li>
         </ul>
       </div>
     </div>
   </div>
 </div>
+
+<ng-template #adminTitle>
+  <h2 class="normal-case text-xl">Admin Area</h2>
+</ng-template>

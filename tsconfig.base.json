@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": "./",
     "paths": {
+      "@salus/forms": ["libs/forms/src/index.ts"],
       "@salus/graphql": ["libs/graphql/src/index.ts"]
     }
   },
