@@ -13,6 +13,10 @@ export interface IPerson {
   roles: string[];
 }
 
+export interface IPersonResponse {
+  person: IPerson;
+}
+
 export const WrappedPersonGql = `
 person {
     id
@@ -31,6 +35,7 @@ person {
       street
       number
       postCode
+      country
     }
     domicile {
       id
@@ -39,6 +44,7 @@ person {
       street
       number
       postCode
+      country
     }
     roles
   }
@@ -61,6 +67,7 @@ export const PersonGql = `
       street
       number
       postCode
+      country
     }
     domicile {
       id
@@ -69,6 +76,7 @@ export const PersonGql = `
       street
       number
       postCode
+      country
     }
     roles
 `;

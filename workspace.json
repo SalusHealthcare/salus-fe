@@ -4,6 +4,8 @@
   "projects": {
     "features-authentication": "apps/features/authentication",
     "features-authentication-e2e": "apps/features/authentication-e2e",
+    "features-edit-person": "apps/features/edit-person",
+    "features-edit-person-e2e": "apps/features/edit-person-e2e",
     "features-staff-manager": "apps/features/staff-manager",
     "features-staff-manager-e2e": "apps/features/staff-manager-e2e",
     "features-videoroom": "apps/features/videoroom",

@@ -7,12 +7,14 @@ import { MatTableModule } from '@angular/material/table';
 import { CreateStaffComponent } from './components/create-staff/create-staff.component';
 import { StaffListComponent } from './components/staff-list/staff-list.component';
 import { FormelloModule } from '@salus/forms';
+import { EditStaffComponent } from './components/edit-staff/edit-staff.component';
 
 @NgModule({
   declarations: [
     RemoteEntryComponent,
     CreateStaffComponent,
     StaffListComponent,
+    EditStaffComponent,
   ],
   imports: [
     CommonModule,
@@ -28,6 +30,13 @@ import { FormelloModule } from '@salus/forms';
           {
             path: 'create',
             component: CreateStaffComponent,
+          },
+          {
+            path: 'edit/:id',
+            loadChildren: () =>
+              import('features-edit-person/Module').then(
+                (m) => m.RemoteEntryModule
+              ),
           },
         ],
       },

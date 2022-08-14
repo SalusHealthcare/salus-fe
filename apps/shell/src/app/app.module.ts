@@ -48,6 +48,13 @@ import { MatNativeDateModule } from '@angular/material/core';
               (m) => m.RemoteEntryModule
             ),
         },
+        {
+          path: 'features-edit-person',
+          loadChildren: () =>
+            import('features-edit-person/Module').then(
+              (m) => m.RemoteEntryModule
+            ),
+        },
       ],
       { initialNavigation: 'enabledBlocking' }
     ),

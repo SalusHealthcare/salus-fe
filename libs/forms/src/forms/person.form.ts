@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Validators } from '@angular/forms';
-import { MedicalSpeciality } from '@salus/graphql';
+import { IPerson, MedicalSpeciality } from '@salus/graphql';
 import { FormelloField } from '../lib/formello/FormelloField';
 import { IFormelloConfig } from '../lib/models/interfaces/IFormelloConfig.interface';
 import {
@@ -128,6 +128,29 @@ export class PersonFormModel {
     [Validators.required],
     medicalSpeciality
   );
+}
+
+export class PersonFormConfigGeneric
+  implements IFormelloConfig<PersonFormModel>
+{
+  model: PersonFormModel;
+  rows: Array<IFormelloRow>;
+
+  constructor(model: PersonFormModel) {
+    this.model = model;
+    this.rows = [
+      {
+        fields: [this.model.firstName, this.model.lastName, this.model.taxCode],
+      },
+      {
+        fields: [
+          this.model.birthDate,
+          this.model.email,
+          this.model.telephoneNumber,
+        ],
+      },
+    ];
+  }
 }
 
 export class PersonFormConfigStaff implements IFormelloConfig<PersonFormModel> {

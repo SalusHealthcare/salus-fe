@@ -1,0 +1,118 @@
+{
+  "projectType": "application",
+  "sourceRoot": "apps/features/edit-person/src",
+  "prefix": "salus",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:webpack-browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/features/edit-person",
+        "index": "apps/features/edit-person/src/index.html",
+        "main": "apps/features/edit-person/src/main.ts",
+        "polyfills": "apps/features/edit-person/src/polyfills.ts",
+        "tsConfig": "apps/features/edit-person/tsconfig.app.json",
+        "assets": [
+          "apps/features/edit-person/src/favicon.ico",
+          "apps/features/edit-person/src/assets"
+        ],
+        "styles": ["apps/features/edit-person/src/styles.css"],
+        "scripts": [],
+        "customWebpackConfig": {
+          "path": "apps/features/edit-person/webpack.config.js"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/features/edit-person/src/environments/environment.ts",
+              "with": "apps/features/edit-person/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all",
+          "customWebpackConfig": {
+            "path": "apps/features/edit-person/webpack.prod.config.js"
+          }
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@nrwl/angular:webpack-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "features-edit-person:build:production"
+        },
+        "development": {
+          "browserTarget": "features-edit-person:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 4205,
+        "publicHost": "http://localhost:4205"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "features-edit-person:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/features/edit-person/**/*.ts",
+          "apps/features/edit-person/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/features/edit-person"],
+      "options": {
+        "jestConfig": "apps/features/edit-person/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "serve-static": {
+      "executor": "@nrwl/angular:file-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "features-edit-person:build",
+        "port": 4205
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "features-edit-person:build:development"
+        },
+        "production": {
+          "buildTarget": "features-edit-person:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}

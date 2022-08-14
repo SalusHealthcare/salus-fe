@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { IPerson, StaffService } from '@salus/graphql';
 
 @Component({
@@ -17,7 +18,7 @@ export class StaffListComponent implements OnInit {
   ];
   dataSource = new MatTableDataSource<IPerson>();
 
-  constructor(private staffService: StaffService) {}
+  constructor(private staffService: StaffService, private router: Router) {}
 
   ngOnInit(): void {
     this.getStaff();
@@ -32,5 +33,9 @@ export class StaffListComponent implements OnInit {
           this.dataSource = new MatTableDataSource(result.data.allPeople);
         }
       });
+  }
+
+  goToEdit(row: IPerson) {
+    this.router.navigate(['app', 'staff', 'edit', row.id]);
   }
 }

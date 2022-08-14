@@ -1,10 +1,9 @@
 module.exports = {
-  name: 'features-staff-manager',
+  name: 'features-edit-person',
   exposes: {
     './Module':
-      'apps/features/staff-manager/src/app/remote-entry/entry.module.ts',
+      'apps/features/edit-person/src/app/remote-entry/entry.module.ts',
   },
-  remotes: ['features-edit-person'],
   shared: (libraryName, sharedConfig) => {
     if (libraryName === '@apollo/client/core') {
       return {

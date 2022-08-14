@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Apollo, gql, MutationResult } from 'apollo-angular';
-import { Observable } from 'rxjs';
+import { catchError, Observable } from 'rxjs';
 import { CreatePersonInput, IUser } from './models/Authentication.interface';
 import { PersonGql, WrappedPersonGql } from './models/Person.interface';
 import {

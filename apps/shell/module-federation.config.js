@@ -4,6 +4,7 @@ module.exports = {
     'features-staff-manager',
     'features-authentication',
     'features-videoroom',
+    'features-edit-person',
   ],
   shared: (libraryName, sharedConfig) => {
     if (libraryName === '@apollo/client/core') {
