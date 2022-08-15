@@ -35,25 +35,25 @@ import { MatNativeDateModule } from '@angular/material/core';
                 ),
             },
             {
+              path: 'patient',
+              loadChildren: () =>
+                import('features-patient-manager/Module').then(
+                  (m) => m.RemoteEntryModule
+                ),
+            },
+            {
+              path: 'videoroom',
+              loadChildren: () =>
+                import('features-videoroom/Module').then(
+                  (m) => m.RemoteEntryModule
+                ),
+            },
+            {
               path: '',
               pathMatch: 'full',
               redirectTo: 'staff',
             },
           ],
-        },
-        {
-          path: 'features-videoroom',
-          loadChildren: () =>
-            import('features-videoroom/Module').then(
-              (m) => m.RemoteEntryModule
-            ),
-        },
-        {
-          path: 'features-edit-person',
-          loadChildren: () =>
-            import('features-edit-person/Module').then(
-              (m) => m.RemoteEntryModule
-            ),
         },
       ],
       { initialNavigation: 'enabledBlocking' }

@@ -1,12 +1,9 @@
 module.exports = {
-  name: 'shell',
-  remotes: [
-    'features-staff-manager',
-    'features-authentication',
-    'features-videoroom',
-    'features-edit-person',
-    'features-patient-manager',
-  ],
+  name: 'features-patient-manager',
+  exposes: {
+    './Module':
+      'apps/features/patient-manager/src/app/remote-entry/entry.module.ts',
+  },
   shared: (libraryName, sharedConfig) => {
     if (libraryName === '@apollo/client/core') {
       return {

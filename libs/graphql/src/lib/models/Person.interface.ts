@@ -1,3 +1,4 @@
+import { CreateAddressInput } from './Authentication.interface';
 import { IDate, IAddress } from './Shared.interface';
 
 export interface IPerson {
@@ -15,6 +16,16 @@ export interface IPerson {
 
 export interface IPersonResponse {
   person: IPerson;
+}
+
+export interface UpdatePersonInput {
+  firstName: string;
+  lastName: string;
+  birthDate: string;
+  taxCode: string;
+  telephoneNumber: string;
+  residence: CreateAddressInput;
+  domicile: CreateAddressInput;
 }
 
 export const WrappedPersonGql = `

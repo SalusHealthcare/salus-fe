@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Apollo, gql, MutationResult } from 'apollo-angular';
 import { Observable } from 'rxjs';
-import { IPersonResponse, PersonGql } from './models/Person.interface';
+import {
+  IPersonResponse,
+  PersonGql,
+  UpdatePersonInput,
+  WrappedPersonGql,
+} from './models/Person.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -22,6 +27,24 @@ export class CommonService {
       `,
       variables: {
         personId,
+      },
+    });
+  }
+
+  //! MISSING ID TO UPDATE
+  public updatePerson(props: {
+    personInfo: UpdatePersonInput;
+  }): Observable<MutationResult<IPersonResponse>> {
+    return this.apollo.mutate({
+      mutation: gql`
+        mutation updatePerson($personInfo: CreatePersonInput!) {
+          updatePerson(personInfo: $personInfo) {
+            ${WrappedPersonGql}
+          }
+        }
+      `,
+      variables: {
+        ...props,
       },
     });
   }

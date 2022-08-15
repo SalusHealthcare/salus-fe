@@ -9,3 +9,5 @@ declare module 'features-authentication/Module';
 declare module 'features-videoroom/Module';
 
 declare module 'features-edit-person/Module';
+
+declare module 'features-patient-manager/Module';
