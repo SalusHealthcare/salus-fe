@@ -8,7 +8,8 @@ import { CreateStaffComponent } from './components/create-staff/create-staff.com
 import { StaffListComponent } from './components/staff-list/staff-list.component';
 import { FormelloModule } from '@salus/forms';
 import { EditStaffComponent } from './components/edit-staff/edit-staff.component';
-
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 @NgModule({
   declarations: [
     RemoteEntryComponent,
@@ -42,6 +43,8 @@ import { EditStaffComponent } from './components/edit-staff/edit-staff.component
       },
     ]),
     MatTableModule,
+    MatButtonModule,
+    MatIconModule,
     FormelloModule,
   ],
   providers: [],

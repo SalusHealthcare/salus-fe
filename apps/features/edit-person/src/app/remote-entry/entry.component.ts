@@ -9,7 +9,7 @@ import {
   ResidenceFormConfig,
   ResidenceFormModel,
 } from '@salus/forms';
-import { CommonService } from '@salus/graphql';
+import { CommonService, IPerson } from '@salus/graphql';
 
 @Component({
   selector: 'salus-features-edit-person-entry',
@@ -19,6 +19,8 @@ import { CommonService } from '@salus/graphql';
 })
 export class RemoteEntryComponent {
   fullName = '';
+  readOnlyMode = true;
+  editable = true;
   personForm: Formello<PersonFormModel>;
   residenceForm: Formello<ResidenceFormModel>;
   domicileForm: Formello<DomicileFormModel>;
@@ -31,7 +33,16 @@ export class RemoteEntryComponent {
     private commonService: CommonService
   ) {
     this.activatedRoute.params.subscribe((params) => {
-      this.getPersonById(params['id']);
+      console.log(params['id']);
+
+      if (params['id']) {
+        this.getPersonById(params['id']);
+      } else {
+        const person: IPerson = JSON.parse(
+          sessionStorage.getItem('user') || '{}'
+        );
+        this.getPersonById(person.id);
+      }
     });
 
     this.personForm = new Formello(
@@ -44,6 +55,21 @@ export class RemoteEntryComponent {
     this.domicileForm = new Formello(
       new DomicileFormConfig(this.domicileFormModel)
     );
+    this.disableAllForms();
+  }
+
+  disableAllForms() {
+    this.personForm.getForm().disable();
+    this.residenceForm.getForm().disable();
+    this.domicileForm.getForm().disable();
+    this.readOnlyMode = true;
+  }
+
+  enableAllForms() {
+    this.personForm.getForm().enable();
+    this.residenceForm.getForm().enable();
+    this.domicileForm.getForm().enable();
+    this.readOnlyMode = false;
   }
 
   getFullName(): string {
@@ -65,5 +91,9 @@ export class RemoteEntryComponent {
         this.fullName = this.getFullName();
       }
     });
+  }
+
+  save() {
+    this.disableAllForms();
   }
 }

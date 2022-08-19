@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { IPerson, StaffService } from '@salus/graphql';
+import { CommonService, IPerson, StaffService } from '@salus/graphql';
 
 @Component({
   selector: 'salus-staff-list',
@@ -18,7 +18,11 @@ export class StaffListComponent implements OnInit {
   ];
   dataSource = new MatTableDataSource<IPerson>();
 
-  constructor(private staffService: StaffService, private router: Router) {}
+  constructor(
+    private staffService: StaffService,
+    private commonService: CommonService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getStaff();
@@ -27,7 +31,7 @@ export class StaffListComponent implements OnInit {
   getStaff() {
     this.staffService
       .getAllPeople({ page: 0, size: 10 })
-      .subscribe((result) => {
+      .valueChanges.subscribe((result) => {
         console.log(result);
         if (result.data) {
           this.dataSource = new MatTableDataSource(result.data.allPeople);
@@ -37,5 +41,13 @@ export class StaffListComponent implements OnInit {
 
   goToEdit(row: IPerson) {
     this.router.navigate(['app', 'staff', 'edit', row.id]);
+  }
+
+  deleteStaff(row: IPerson) {
+    this.commonService.deletePerson(row.id).subscribe((result) => {
+      // if (result.data) {
+      this.staffService.getAllPeople({ page: 0, size: 10 }).refetch();
+      // }
+    });
   }
 }

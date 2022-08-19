@@ -12,3 +12,7 @@ export interface IDate {
   iso: string;
   formatString: (format: string) => string;
 }
+
+export interface DeleteUserResponse {
+  deleteUser: boolean;
+}

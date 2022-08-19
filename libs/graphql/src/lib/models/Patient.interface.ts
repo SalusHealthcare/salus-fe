@@ -12,7 +12,12 @@ export interface IGetPatientResponse {
   patients: IPatient[];
 }
 
-export const PatientGql = `
+export const PatientGql = (
+  medicalRecordStartDate: string,
+  medicalRecordEndDate: string,
+  reservationsStartDate: string,
+  reservationsEndDate: string
+) => `
 id
 firstName
 lastName
@@ -23,11 +28,11 @@ taxCode
 email
 telephoneNumber
 roles
-medicalRecord{
+medicalRecord(page: 0, size: 100, startDate: "${medicalRecordStartDate}", endDate: "${medicalRecordEndDate}") {
     id
     description
 }
-reservations{
+reservations(startDate: "${reservationsStartDate}", endDate: "${reservationsEndDate}") {
     id 
 }
 `;

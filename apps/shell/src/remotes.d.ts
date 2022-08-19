@@ -11,3 +11,7 @@ declare module 'features-videoroom/Module';
 declare module 'features-edit-person/Module';
 
 declare module 'features-patient-manager/Module';
+
+declare module 'features-profile-manager/Module';
+
+declare module 'features-password-change/Module';

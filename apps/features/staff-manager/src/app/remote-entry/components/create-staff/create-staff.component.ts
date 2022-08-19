@@ -90,6 +90,7 @@ export class CreateStaffComponent implements OnInit {
           .createMedic({ userInfo, personInfo: personInfo as CreateMedicInput })
           .subscribe((result) => {
             if (result.data?.createMedicUser) {
+              this.staffService.getAllPeople({ page: 0, size: 10 }).refetch();
               this.router.navigate(['app', 'staff']);
             } else {
               //start error dialog
@@ -105,6 +106,7 @@ export class CreateStaffComponent implements OnInit {
           .subscribe((result) => {
             if (result.data?.createStaffUser) {
               console.log('createStaffUser', result.data.createStaffUser);
+              this.staffService.getAllPeople({ page: 0, size: 10 }).refetch();
               this.router.navigate(['app', 'staff']);
             } else {
               //start error dialog

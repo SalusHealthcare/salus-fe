@@ -16,6 +16,10 @@ export type CreatePersonInput = Omit<
 };
 export type CreateAddressInput = Omit<IAddress, 'id'>;
 
+export interface UpdatePasswordInput {
+  originalPassword: string;
+  newPassword: string;
+}
 export interface ILoginResponse {
   login: {
     token: string;
@@ -25,6 +29,13 @@ export interface ILoginResponse {
 
 export interface ICreatePatientResponse {
   createPatientUser: {
+    token: string;
+    person: IPerson;
+  };
+}
+
+export interface IUpdatePasswordResponse {
+  updatePassword: {
     token: string;
     person: IPerson;
   };

@@ -6,6 +6,7 @@ import {
   CreatePersonInput,
   IUser,
 } from '@salus/graphql';
+import { catchError } from 'rxjs';
 
 @Component({
   templateUrl: './login.component.html',
@@ -49,19 +50,23 @@ export class LoginComponent {
   }
 
   login() {
-    this.authenticationService
-      .login(this.loginForm.value)
-      .subscribe((result) => {
-        console.log(result);
-        if (result.data) {
+    this.authenticationService.login(this.loginForm.value).subscribe({
+      next: (result) => {
+        if (result.data?.login) {
           sessionStorage.setItem('token', result.data.login.token);
           sessionStorage.setItem(
             'user',
             JSON.stringify(result.data.login.person)
           );
           this.router.navigate(['app']);
-        } else sessionStorage.removeItem('token');
-      });
+        } else {
+          sessionStorage.removeItem('token');
+        }
+      },
+      error: (error) => {
+        alert(error.message);
+      },
+    });
   }
 
   signup() {

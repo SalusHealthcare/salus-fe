@@ -5,7 +5,9 @@ import {
   CreatePersonInput,
   ICreatePatientResponse,
   ILoginResponse,
+  IUpdatePasswordResponse,
   IUser,
+  UpdatePasswordInput,
 } from './models/Authentication.interface';
 import { WrappedPersonGql } from './models/Person.interface';
 
@@ -49,6 +51,24 @@ export class AuthenticationService {
       `,
       variables: {
         ...props,
+      },
+    });
+  }
+
+  public updatePassword(
+    input: UpdatePasswordInput
+  ): Observable<MutationResult<IUpdatePasswordResponse>> {
+    return this.apollo.mutate({
+      mutation: gql`
+        mutation updatePassword($input: UpdatePasswordInput!) {
+          updatePassword(input: $input){
+            token,
+            ${WrappedPersonGql}
+          }
+        }
+      `,
+      variables: {
+        input,
       },
     });
   }

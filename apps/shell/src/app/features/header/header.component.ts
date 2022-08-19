@@ -1,6 +1,6 @@
 import { Component, OnInit, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { IPerson } from '@salus/graphql';
 
 @Component({
@@ -22,7 +22,7 @@ export class HeaderComponent {
 }
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   declarations: [HeaderComponent],
   exports: [HeaderComponent],
 })

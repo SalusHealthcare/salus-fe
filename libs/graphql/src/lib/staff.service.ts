@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Apollo, gql, MutationResult } from 'apollo-angular';
+import { Apollo, gql, MutationResult, QueryRef } from 'apollo-angular';
 import { Observable } from 'rxjs';
 import { CreatePersonInput, IUser } from './models/Authentication.interface';
 import {
@@ -23,8 +23,8 @@ export class StaffService {
     size: number;
     personSort?: string;
     role?: string;
-  }): Observable<MutationResult<IAllPersonResponse>> {
-    return this.apollo.query({
+  }): QueryRef<IAllPersonResponse, any> {
+    return this.apollo.watchQuery({
       query: gql`
         query allPeople($page: Int!, $size: Int!) {
           allPeople(page: $page, size: $size) {

@@ -7,6 +7,7 @@ import {
   UpdatePersonInput,
   WrappedPersonGql,
 } from './models/Person.interface';
+import { DeleteUserResponse } from './models/Shared.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -45,6 +46,21 @@ export class CommonService {
       `,
       variables: {
         ...props,
+      },
+    });
+  }
+
+  public deletePerson(
+    personId: string
+  ): Observable<MutationResult<DeleteUserResponse>> {
+    return this.apollo.mutate({
+      mutation: gql`
+        mutation deleteUser($personId: ID!) {
+          deleteUser(personId: $personId)
+        }
+      `,
+      variables: {
+        personId,
       },
     });
   }

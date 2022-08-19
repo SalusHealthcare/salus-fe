@@ -49,6 +49,13 @@ import { MatNativeDateModule } from '@angular/material/core';
                 ),
             },
             {
+              path: 'profile',
+              loadChildren: () =>
+                import('features-profile-manager/Module').then(
+                  (m) => m.RemoteEntryModule
+                ),
+            },
+            {
               path: '',
               pathMatch: 'full',
               redirectTo: 'staff',
