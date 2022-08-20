@@ -42,6 +42,13 @@ import { MatNativeDateModule } from '@angular/material/core';
                 ),
             },
             {
+              path: 'shifts',
+              loadChildren: () =>
+                import('features-shifts-manager/Module').then(
+                  (m) => m.RemoteEntryModule
+                ),
+            },
+            {
               path: 'videoroom',
               loadChildren: () =>
                 import('features-videoroom/Module').then(

@@ -12,6 +12,8 @@
     "features-patient-manager-e2e": "apps/features/patient-manager-e2e",
     "features-profile-manager": "apps/features/profile-manager",
     "features-profile-manager-e2e": "apps/features/profile-manager-e2e",
+    "features-shifts-manager": "apps/features/shifts-manager",
+    "features-shifts-manager-e2e": "apps/features/shifts-manager-e2e",
     "features-staff-manager": "apps/features/staff-manager",
     "features-staff-manager-e2e": "apps/features/staff-manager-e2e",
     "features-videoroom": "apps/features/videoroom",

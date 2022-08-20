@@ -8,6 +8,7 @@ module.exports = {
     'features-patient-manager',
     'features-profile-manager',
     'features-password-change',
+    'features-shifts-manager',
   ],
   shared: (libraryName, sharedConfig) => {
     if (libraryName === '@apollo/client/core') {
