@@ -30,7 +30,7 @@ export class StaffListComponent implements OnInit {
 
   getStaff() {
     this.staffService
-      .getAllPeople({ page: 0, size: 10 })
+      .getAllPeople({ page: 0, size: 10, role: 'STAFF' })
       .valueChanges.subscribe((result) => {
         console.log(result);
         if (result.data) {
@@ -46,7 +46,9 @@ export class StaffListComponent implements OnInit {
   deleteStaff(row: IPerson) {
     this.commonService.deletePerson(row.id).subscribe((result) => {
       // if (result.data) {
-      this.staffService.getAllPeople({ page: 0, size: 10 }).refetch();
+      this.staffService
+        .getAllPeople({ page: 0, size: 10, role: 'STAFF' })
+        .refetch();
       // }
     });
   }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Apollo, gql, MutationResult, QueryRef } from 'apollo-angular';
-import { Observable } from 'rxjs';
+import { Observable, startWith } from 'rxjs';
 import { CreatePersonInput, IUser } from './models/Authentication.interface';
 import {
   CreateMedicInput,
@@ -10,6 +10,8 @@ import { PersonGql, WrappedPersonGql } from './models/Person.interface';
 import {
   IAllPersonResponse,
   ICreateStaffResponse,
+  IGetShiftsResponse,
+  ShiftForWeeksOnWorker,
 } from './models/Staff.interface';
 
 @Injectable({
@@ -26,8 +28,8 @@ export class StaffService {
   }): QueryRef<IAllPersonResponse, any> {
     return this.apollo.watchQuery({
       query: gql`
-        query allPeople($page: Int!, $size: Int!) {
-          allPeople(page: $page, size: $size) {
+        query allPeople($page: Int!, $size: Int!, $role: String) {
+          allPeople(page: $page, size: $size, role: $role) {
             ${PersonGql}
           }
         }
@@ -69,6 +71,45 @@ export class StaffService {
             ${WrappedPersonGql}
           }
         }
+      `,
+      variables: {
+        ...props,
+      },
+    });
+  }
+
+  public getShifts(props: {
+    page: number;
+    size: number;
+    startDate: Date;
+    endDate: Date;
+  }): QueryRef<IGetShiftsResponse, any> {
+    return this.apollo.watchQuery({
+      query: gql`
+      ${ShiftForWeeksOnWorker(
+        'Staff',
+        props.startDate.toISOString().split('.')[0],
+        props.endDate.toISOString().split('.')[0]
+      )}
+      ${ShiftForWeeksOnWorker(
+        'Medic',
+        props.startDate.toISOString().split('.')[0],
+        props.endDate.toISOString().split('.')[0]
+      )}
+        query allPeople($page: Int!, $size: Int!) {
+          allPeople(page: $page, size: $size, role: "STAFF") {
+            ${PersonGql}
+            __typename
+            ... on Staff {
+              ...ShiftSlotOfWeekForStaff
+              }
+            ... on Medic{
+              speciality
+              ...ShiftSlotOfWeekForMedic
+              }
+          }
+        }
+        
       `,
       variables: {
         ...props,

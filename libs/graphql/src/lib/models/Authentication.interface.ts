@@ -8,7 +8,13 @@ export interface IUser {
 
 export type CreatePersonInput = Omit<
   IPerson,
-  'id' | 'email' | 'roles' | 'birthDate' | 'residence' | 'domicile'
+  | 'id'
+  | 'email'
+  | 'roles'
+  | 'birthDate'
+  | 'residence'
+  | 'domicile'
+  | '__typename'
 > & {
   birthDate: string;
   residence: CreateAddressInput;
