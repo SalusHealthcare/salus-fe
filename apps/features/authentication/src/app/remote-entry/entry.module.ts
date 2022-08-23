@@ -19,6 +19,11 @@ import { ReactiveFormsModule } from '@angular/forms';
             path: 'login',
             component: LoginComponent,
           },
+          {
+            path: '',
+            pathMatch: 'full',
+            redirectTo: 'login',
+          },
         ],
       },
     ]),

@@ -16,7 +16,8 @@
     "baseUrl": "./",
     "paths": {
       "@salus/forms": ["libs/forms/src/index.ts"],
-      "@salus/graphql": ["libs/graphql/src/index.ts"]
+      "@salus/graphql": ["libs/graphql/src/index.ts"],
+      "@salus/helpers": ["libs/helpers/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

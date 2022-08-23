@@ -69,6 +69,11 @@ import { MatNativeDateModule } from '@angular/material/core';
             },
           ],
         },
+        {
+          path: '',
+          pathMatch: 'full',
+          redirectTo: 'auth',
+        },
       ],
       { initialNavigation: 'enabledBlocking' }
     ),

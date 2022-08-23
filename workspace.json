@@ -20,6 +20,7 @@
     "features-videoroom-e2e": "apps/features/videoroom-e2e",
     "forms": "libs/forms",
     "graphql": "libs/graphql",
+    "helpers": "libs/helpers",
     "shell": "apps/shell",
     "shell-e2e": "apps/shell-e2e"
   }
