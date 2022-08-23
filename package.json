@@ -8,6 +8,9 @@
     "test": "nx test",
     "postinstall": "ngcc --properties es2020 browser module main"
   },
+  "engines": {
+    "node": "16.x"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~14.0.0",
