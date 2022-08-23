@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
@@ -83,14 +84,21 @@ export class CreateStaffComponent implements OnInit {
 
     switch (this.personFormModel.type.control.value) {
       case 'medic':
-        (personInfo as CreateMedicInput).medicalSpeciality = this.newStaffForm
-          .getForm()
-          .get('medicalSpecialty')?.value;
+        const medicalInfo: CreateMedicInput = {
+          ...personInfo,
+          medicalSpeciality: this.newStaffForm
+            .getForm()
+            .get('medicalSpeciality')?.value,
+        };
+        console.log(medicalInfo);
+
         this.staffService
-          .createMedic({ userInfo, personInfo: personInfo as CreateMedicInput })
+          .createMedic({ userInfo, personInfo: medicalInfo })
           .subscribe((result) => {
             if (result.data?.createMedicUser) {
-              this.staffService.getAllPeople({ page: 0, size: 10 }).refetch();
+              this.staffService
+                .getAllPeople({ page: 0, size: 25, role: 'STAFF' })
+                .refetch();
               this.router.navigate(['app', 'staff']);
             } else {
               //start error dialog
@@ -106,7 +114,9 @@ export class CreateStaffComponent implements OnInit {
           .subscribe((result) => {
             if (result.data?.createStaffUser) {
               console.log('createStaffUser', result.data.createStaffUser);
-              this.staffService.getAllPeople({ page: 0, size: 10 }).refetch();
+              this.staffService
+                .getAllPeople({ page: 0, size: 25, role: 'STAFF' })
+                .refetch();
               this.router.navigate(['app', 'staff']);
             } else {
               //start error dialog
@@ -119,5 +129,13 @@ export class CreateStaffComponent implements OnInit {
   domicileAsResidence() {
     this.domicileForm.getForm().patchValue(this.residenceForm.getForm().value);
     this.domicileForm.getForm().updateValueAndValidity({});
+  }
+
+  isAllFormsValid(): boolean {
+    return (
+      this.newStaffForm.getForm().valid &&
+      this.residenceForm.getForm().valid &&
+      this.domicileForm.getForm().valid
+    );
   }
 }

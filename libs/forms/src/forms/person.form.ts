@@ -1,6 +1,6 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Validators } from '@angular/forms';
-import { IPerson, MedicalSpeciality } from '@salus/graphql';
+import { MedicalSpeciality } from '@salus/graphql';
 import { FormelloField } from '../lib/formello/FormelloField';
 import { IFormelloConfig } from '../lib/models/interfaces/IFormelloConfig.interface';
 import {
@@ -120,7 +120,7 @@ export class PersonFormModel {
     Validators.required,
   ]);
 
-  medicalSpeciality = new FormelloField<MedicalSpeciality>(
+  medicalSpeciality = new FormelloField(
     'medicalSpeciality',
     'Medical Speciality',
     MedicalSpeciality.GENERAL_PRACTICE,

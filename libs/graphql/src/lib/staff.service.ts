@@ -49,10 +49,17 @@ export class StaffService {
   }): Observable<MutationResult<ICreateStaffResponse>> {
     return this.apollo.mutate({
       mutation: gql`
-        mutation createStaffUser($userInfo: CreateUserInput!, $personInfo: CreatePersonInput!) {
+        mutation createStaffUser(
+          $userInfo: CreateUserInput!
+          $personInfo: CreatePersonInput!
+        ) {
           createStaffUser(userInfo: $userInfo, personInfo: $personInfo) {
             token
-            ${WrappedPersonGql}
+            person {
+              id
+              firstName
+              lastName
+            }
           }
         }
       `,
@@ -68,10 +75,17 @@ export class StaffService {
   }): Observable<MutationResult<ICreateMedicResponse>> {
     return this.apollo.mutate({
       mutation: gql`
-        mutation createMedicUser($userInfo: CreateUserInput!, $personInfo: CreateMedicInput!) {
+        mutation createMedicUser(
+          $userInfo: CreateUserInput!
+          $personInfo: CreateMedicInput!
+        ) {
           createMedicUser(userInfo: $userInfo, personInfo: $personInfo) {
             token
-            ${WrappedPersonGql}
+            person {
+              id
+              firstName
+              lastName
+            }
           }
         }
       `,

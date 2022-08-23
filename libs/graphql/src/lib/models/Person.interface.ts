@@ -15,15 +15,27 @@ export interface IPerson {
   __typename: string;
 }
 
+export interface ICurrentUserResponse {
+  currentUser: {
+    person: IPerson;
+  };
+}
+
 export interface IPersonResponse {
   person: IPerson;
+}
+
+export interface IUpdatePersonResponse {
+  updatePerson: IPerson;
+}
+
+export interface IUpdatePersonByAdminResponse {
+  updatePersonByAdmin: IPerson;
 }
 
 export interface UpdatePersonInput {
   firstName: string;
   lastName: string;
-  birthDate: string;
-  taxCode: string;
   telephoneNumber: string;
   residence: CreateAddressInput;
   domicile: CreateAddressInput;

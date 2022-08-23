@@ -9,7 +9,7 @@ import {
   ResidenceFormConfig,
   ResidenceFormModel,
 } from '@salus/forms';
-import { CommonService, IPerson } from '@salus/graphql';
+import { CommonService, IPerson, UpdatePersonInput } from '@salus/graphql';
 
 @Component({
   selector: 'salus-features-edit-person-entry',
@@ -24,6 +24,7 @@ export class RemoteEntryComponent {
   personForm: Formello<PersonFormModel>;
   residenceForm: Formello<ResidenceFormModel>;
   domicileForm: Formello<DomicileFormModel>;
+  id: string | null = null;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -33,15 +34,11 @@ export class RemoteEntryComponent {
     private commonService: CommonService
   ) {
     this.activatedRoute.params.subscribe((params) => {
-      console.log(params['id']);
-
       if (params['id']) {
+        this.id = params['id'];
         this.getPersonById(params['id']);
       } else {
-        const person: IPerson = JSON.parse(
-          sessionStorage.getItem('user') || '{}'
-        );
-        this.getPersonById(person.id);
+        this.getCurrentPerson();
       }
     });
 
@@ -66,7 +63,9 @@ export class RemoteEntryComponent {
   }
 
   enableAllForms() {
-    this.personForm.getForm().enable();
+    this.personFormModel.firstName.control.enable();
+    this.personFormModel.lastName.control.enable();
+    this.personFormModel.telephoneNumber.control.enable();
     this.residenceForm.getForm().enable();
     this.domicileForm.getForm().enable();
     this.readOnlyMode = false;
@@ -81,19 +80,64 @@ export class RemoteEntryComponent {
     this.domicileForm.getForm().updateValueAndValidity({});
   }
 
+  patchFormWithPerson(person: IPerson) {
+    this.personForm.getForm().patchValue(person);
+    this.residenceForm.getForm().patchValue(person.residence);
+    this.domicileForm.getForm().patchValue(person.domicile);
+    this.fullName = this.getFullName();
+  }
+
   getPersonById(id: string): void {
     this.commonService.getPersonById(id).subscribe((personResponse) => {
       if (personResponse.data) {
         const person = personResponse.data.person;
-        this.personForm.getForm().patchValue(person);
-        this.residenceForm.getForm().patchValue(person.residence);
-        this.domicileForm.getForm().patchValue(person.domicile);
-        this.fullName = this.getFullName();
+        this.patchFormWithPerson(person);
       }
     });
   }
 
+  getCurrentPerson(): void {
+    this.commonService.getCurrentUser().valueChanges.subscribe((response) => {
+      if (response.data.currentUser) {
+        const person = response.data.currentUser.person;
+        this.patchFormWithPerson(person);
+      }
+    });
+    this.commonService.getCurrentUser().refetch();
+  }
+
   save() {
-    this.disableAllForms();
+    const personValues: IPerson = this.personForm.getForm().value;
+    const personInfo: UpdatePersonInput = {
+      firstName: personValues.firstName,
+      lastName: personValues.lastName,
+      telephoneNumber: personValues.telephoneNumber,
+      residence: this.residenceForm.getForm().value,
+      domicile: this.domicileForm.getForm().value,
+    };
+
+    if (this.id) {
+      const personId = this.id;
+      this.commonService
+        .updatePersonByAdmin({
+          personId,
+          personInfo,
+        })
+        .subscribe((response) => {
+          if (response.data?.updatePersonByAdmin) {
+            this.disableAllForms();
+          }
+        });
+    } else {
+      this.commonService
+        .updatePerson({
+          personInfo,
+        })
+        .subscribe((response) => {
+          if (response.data?.updatePerson) {
+            this.disableAllForms();
+          }
+        });
+    }
   }
 }

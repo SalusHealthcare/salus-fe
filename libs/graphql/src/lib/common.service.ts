@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Apollo, gql, MutationResult } from 'apollo-angular';
+import { ApolloQueryResult } from '@apollo/client/core';
+import { Apollo, gql, MutationResult, QueryRef } from 'apollo-angular';
 import { Observable } from 'rxjs';
 import {
+  ICurrentUserResponse,
   IPersonResponse,
+  IUpdatePersonByAdminResponse,
+  IUpdatePersonResponse,
   PersonGql,
   UpdatePersonInput,
   WrappedPersonGql,
@@ -15,9 +19,21 @@ import { DeleteUserResponse } from './models/Shared.interface';
 export class CommonService {
   constructor(private apollo: Apollo) {}
 
+  public getCurrentUser(): QueryRef<ICurrentUserResponse> {
+    return this.apollo.watchQuery({
+      query: gql`
+        query currentUser {
+          currentUser {
+            ${WrappedPersonGql}
+          }
+        }
+      `,
+    });
+  }
+
   public getPersonById(
     personId: string
-  ): Observable<MutationResult<IPersonResponse>> {
+  ): Observable<ApolloQueryResult<IPersonResponse>> {
     return this.apollo.query({
       query: gql`
         query person($personId: ID!) {
@@ -32,15 +48,32 @@ export class CommonService {
     });
   }
 
-  //! MISSING ID TO UPDATE
   public updatePerson(props: {
     personInfo: UpdatePersonInput;
-  }): Observable<MutationResult<IPersonResponse>> {
+  }): Observable<MutationResult<IUpdatePersonResponse>> {
     return this.apollo.mutate({
       mutation: gql`
-        mutation updatePerson($personInfo: CreatePersonInput!) {
-          updatePerson(personInfo: $personInfo) {
-            ${WrappedPersonGql}
+        mutation updatePerson($personInfo: UpdatePersonInput!) {
+          updatePerson(input: $personInfo) {
+            ${PersonGql}
+          }
+        }
+      `,
+      variables: {
+        ...props,
+      },
+    });
+  }
+
+  public updatePersonByAdmin(props: {
+    personId: string;
+    personInfo: UpdatePersonInput;
+  }): Observable<MutationResult<IUpdatePersonByAdminResponse>> {
+    return this.apollo.mutate({
+      mutation: gql`
+        mutation updatePersonByAdmin($personId: ID!, $personInfo: UpdatePersonInput!) {
+          updatePersonByAdmin(personId: $personId, input: $personInfo) {
+            ${PersonGql}
           }
         }
       `,
