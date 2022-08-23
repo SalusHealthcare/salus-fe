@@ -1,0 +1,123 @@
+{
+  "projectType": "application",
+  "sourceRoot": "apps/features/authentication/src",
+  "prefix": "salus",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:webpack-browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/features/authentication",
+        "index": "apps/features/authentication/src/index.html",
+        "main": "apps/features/authentication/src/main.ts",
+        "polyfills": "apps/features/authentication/src/polyfills.ts",
+        "tsConfig": "apps/features/authentication/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/features/authentication/src/favicon.ico",
+          {
+            "glob": "**/*",
+            "input": "apps/features/authentication/src/assets",
+            "output": "assets"
+          }
+        ],
+        "styles": ["apps/features/authentication/src/styles.scss"],
+        "scripts": [],
+        "customWebpackConfig": {
+          "path": "apps/features/authentication/webpack.config.js"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/features/authentication/src/environments/environment.ts",
+              "with": "apps/features/authentication/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all",
+          "customWebpackConfig": {
+            "path": "apps/features/authentication/webpack.prod.config.js"
+          }
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@nrwl/angular:webpack-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "features-authentication:build:production"
+        },
+        "development": {
+          "browserTarget": "features-authentication:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 4203,
+        "publicHost": "http://localhost:4203"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "features-authentication:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/features/authentication/**/*.ts",
+          "apps/features/authentication/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/features/authentication"],
+      "options": {
+        "jestConfig": "apps/features/authentication/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "serve-static": {
+      "executor": "@nrwl/angular:file-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "features-authentication:build",
+        "port": 4203
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "features-authentication:build:development"
+        },
+        "production": {
+          "buildTarget": "features-authentication:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}

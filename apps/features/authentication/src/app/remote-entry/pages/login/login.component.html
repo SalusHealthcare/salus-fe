@@ -1,0 +1,243 @@
+<div class="w-full px-6 py-12 h-full mx-auto">
+  <div class="flex justify-center items-center h-full gap-8 text-gray-800">
+    <div class="w-full lg:ml-20 flex flex-col gap-8">
+      <img src="assets/Logo.png" class="w-1/5 h-auto mx-auto" />
+
+      <form
+        class="flex flex-col gap-2"
+        [formGroup]="loginOrSignup === 'login' ? loginForm : signupForm"
+      >
+        <!-- Name input -->
+        <div
+          class="flex flex-row items-center gap-2"
+          *ngIf="loginOrSignup === 'signup'"
+        >
+          <div class="form-control w-full">
+            <label class="label">
+              <span class="label-text font-semibold text-gray-600"
+                >Firstname</span
+              >
+            </label>
+            <input
+              type="text"
+              class="form-control input input-bordered input-sm w-full"
+              placeholder="Firstname"
+              formControlName="firstName"
+            />
+          </div>
+          <div class="form-control w-full">
+            <label class="label">
+              <span class="label-text font-semibold text-gray-600"
+                >Lastname</span
+              >
+            </label>
+            <input
+              type="text"
+              class="form-control input input-bordered input-sm w-full"
+              placeholder="Lastname"
+              formControlName="lastName"
+            />
+          </div>
+        </div>
+
+        <!-- Birthdate and Taxcode input -->
+        <div
+          class="flex flex-row items-center gap-3"
+          *ngIf="loginOrSignup === 'signup'"
+        >
+          <div class="form-control w-full">
+            <label class="label">
+              <span class="label-text font-semibold text-gray-600"
+                >Taxcode</span
+              >
+            </label>
+            <input
+              type="text"
+              class="form-control input input-bordered input-sm w-full"
+              placeholder="Taxcode"
+              formControlName="taxCode"
+            />
+          </div>
+          <div class="form-control w-full">
+            <label class="label">
+              <span class="label-text font-semibold text-gray-600"
+                >Birthdate</span
+              >
+            </label>
+            <input
+              type="date"
+              class="input input-bordered input-sm w-full"
+              placeholder="Birthdate"
+              formControlName="birthDate"
+            />
+          </div>
+        </div>
+
+        <!-- Residence input -->
+        <div class="flex flex-col" *ngIf="loginOrSignup === 'signup'">
+          <label class="label">
+            <span class="label-text font-semibold text-gray-600"
+              >Residence</span
+            >
+          </label>
+          <div class="flex flex-row items-center gap-4">
+            <input
+              type="text"
+              class="form-control input input-bordered input-sm w-3/6"
+              placeholder="Address"
+              formControlName="residenceAddress"
+            />
+            <input
+              type="text"
+              class="form-control input input-bordered input-sm w-1/6"
+              placeholder="Number"
+              formControlName="residenceNumber"
+            />
+            <input
+              type="text"
+              class="form-control input input-bordered input-sm w-1/6"
+              placeholder="City"
+              formControlName="residenceCity"
+            />
+            <input
+              type="text"
+              class="form-control input input-bordered input-sm w-1/6"
+              placeholder="Province"
+              formControlName="residenceProvince"
+            />
+            <input
+              type="text"
+              class="form-control input input-bordered input-sm w-1/6"
+              placeholder="Postal Code"
+              formControlName="residencePostalCode"
+            />
+            <input
+              type="text"
+              class="form-control input input-bordered input-sm w-1/6"
+              placeholder="Country"
+              formControlName="residenceCountry"
+            />
+          </div>
+        </div>
+
+        <!-- Domicile input -->
+        <div class="flex flex-col" *ngIf="loginOrSignup === 'signup'">
+          <label class="label">
+            <span class="label-text font-semibold text-gray-600">Domicile</span>
+          </label>
+          <div class="flex flex-row items-center gap-4">
+            <input
+              type="text"
+              class="form-control input input-bordered input-sm w-3/6"
+              placeholder="Address"
+              formControlName="domicileAddress"
+            />
+            <input
+              type="text"
+              class="form-control input input-bordered input-sm w-1/6"
+              placeholder="Number"
+              formControlName="domicileNumber"
+            />
+            <input
+              type="text"
+              class="form-control input input-bordered input-sm w-1/6"
+              placeholder="City"
+              formControlName="domicileCity"
+            />
+            <input
+              type="text"
+              class="form-control input input-bordered input-sm w-1/6"
+              placeholder="Province"
+              formControlName="domicileProvince"
+            />
+            <input
+              type="text"
+              class="form-control input input-bordered input-sm w-1/6"
+              placeholder="Postal Code"
+              formControlName="domicilePostalCode"
+            />
+            <input
+              type="text"
+              class="form-control input input-bordered input-sm w-1/6"
+              placeholder="Country"
+              formControlName="domicileCountry"
+            />
+          </div>
+        </div>
+
+        <!-- Telephone input -->
+        <div *ngIf="loginOrSignup === 'signup'">
+          <div class="form-control w-full">
+            <label class="label">
+              <span class="label-text font-semibold text-gray-600"
+                >Telephone</span
+              >
+            </label>
+            <input
+              type="tel"
+              class="form-control input input-bordered input-sm w-full"
+              placeholder="Telephone"
+              formControlName="telephoneNumber"
+            />
+          </div>
+        </div>
+
+        <!-- Email input -->
+        <div>
+          <div class="form-control w-full">
+            <label class="label">
+              <span class="label-text font-semibold text-gray-600">Email</span>
+            </label>
+            <input
+              type="email"
+              class="form-control input input-bordered input-sm w-full"
+              placeholder="Email address"
+              formControlName="email"
+            />
+          </div>
+        </div>
+
+        <!-- Password input -->
+        <div>
+          <div class="form-control w-full">
+            <label class="label">
+              <span class="label-text font-semibold text-gray-600"
+                >Password</span
+              >
+            </label>
+            <input
+              type="password"
+              class="fform-control input input-bordered input-sm w-full"
+              placeholder="Password"
+              formControlName="password"
+            />
+          </div>
+        </div>
+
+        <div class="flex justify-center items-center">
+          <p
+            (click)="toggleLoginOrSignup()"
+            class="text-secondary duration-200 transition ease-in-out hover:text-secondary-focus cursor-pointer"
+          >
+            {{ loginOrSignup === 'login' ? 'Sign Up' : 'Login' }}
+          </p>
+        </div>
+
+        <!-- Submit button -->
+        <button
+          type="submit"
+          class="btn btn-primary btn-block"
+          (click)="loginOrSignup === 'login' ? login() : signup()"
+          [disabled]="
+            loginOrSignup === 'login' ? loginForm.invalid : signupForm.invalid
+          "
+        >
+          {{ loginOrSignup === 'login' ? 'Login' : 'Signup' }}
+        </button>
+      </form>
+    </div>
+    <!-- <div class="w-2/5 mb-12 md:mb-0">
+      <img src="assets/welcome.png" class="w-full" alt="Phone image" />
+    </div> -->
+  </div>
+</div>

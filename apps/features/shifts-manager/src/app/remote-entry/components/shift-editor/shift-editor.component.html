@@ -1,0 +1,22 @@
+<div class="flex flex-row justify-between mb-2">
+  <h3 class="text-xl">Shifts Viewer</h3>
+  <button class="btn btn-ghost" (click)="openAddShiftDialog()">
+    + Add Shift
+  </button>
+</div>
+
+<div class="flex flex-col gap-4">
+  <mat-form-field appearance="outline">
+    <input
+      matInput
+      [matDatepicker]="picker"
+      (dateChange)="dateChanged($event)"
+      [formControl]="currentDateForm"
+      [disabled]="true"
+    />
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker disabled="false"></mat-datepicker>
+  </mat-form-field>
+  <salus-calendar [startWeekDate]="currentDateForm"></salus-calendar>
+</div>

@@ -1,0 +1,32 @@
+<div class="w-full h-full bg-base-100">
+  <div class="mt-6">
+    <img src="assets/Logo.png" class="w-20 h-auto mx-auto" />
+  </div>
+  <ul class="menu bg-base-100 w-full p-2 rounded-box mt-8">
+    <li salusRole [activatedRoles]="['USER']">
+      <a>
+        <mat-icon>dashboard</mat-icon>
+
+        Dashboard
+      </a>
+    </li>
+    <li salusRole [activatedRoles]="['ADMIN']">
+      <a [routerLink]="['/app/staff']" routerLinkActive="active">
+        <mat-icon>groups_2</mat-icon>
+        Staff
+      </a>
+    </li>
+    <li salusRole [activatedRoles]="['ADMIN', 'STAFF', 'MEDIC']">
+      <a [routerLink]="['/app/patient']" routerLinkActive="active">
+        <mat-icon>personal_injury</mat-icon>
+        Patients
+      </a>
+    </li>
+    <li salusRole [activatedRoles]="['ADMIN', 'STAFF', 'MEDIC']">
+      <a [routerLink]="['/app/shifts']" routerLinkActive="active">
+        <mat-icon>work_history</mat-icon>
+        Shifts
+      </a>
+    </li>
+  </ul>
+</div>

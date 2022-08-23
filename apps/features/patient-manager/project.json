@@ -1,0 +1,118 @@
+{
+  "projectType": "application",
+  "sourceRoot": "apps/features/patient-manager/src",
+  "prefix": "salus",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:webpack-browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/features/patient-manager",
+        "index": "apps/features/patient-manager/src/index.html",
+        "main": "apps/features/patient-manager/src/main.ts",
+        "polyfills": "apps/features/patient-manager/src/polyfills.ts",
+        "tsConfig": "apps/features/patient-manager/tsconfig.app.json",
+        "assets": [
+          "apps/features/patient-manager/src/favicon.ico",
+          "apps/features/patient-manager/src/assets"
+        ],
+        "styles": ["apps/features/patient-manager/src/styles.css"],
+        "scripts": [],
+        "customWebpackConfig": {
+          "path": "apps/features/patient-manager/webpack.config.js"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/features/patient-manager/src/environments/environment.ts",
+              "with": "apps/features/patient-manager/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all",
+          "customWebpackConfig": {
+            "path": "apps/features/patient-manager/webpack.prod.config.js"
+          }
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@nrwl/angular:webpack-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "features-patient-manager:build:production"
+        },
+        "development": {
+          "browserTarget": "features-patient-manager:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 4206,
+        "publicHost": "http://localhost:4206"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "features-patient-manager:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/features/patient-manager/**/*.ts",
+          "apps/features/patient-manager/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/features/patient-manager"],
+      "options": {
+        "jestConfig": "apps/features/patient-manager/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "serve-static": {
+      "executor": "@nrwl/angular:file-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "features-patient-manager:build",
+        "port": 4206
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "features-patient-manager:build:development"
+        },
+        "production": {
+          "buildTarget": "features-patient-manager:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}

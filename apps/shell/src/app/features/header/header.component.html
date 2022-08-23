@@ -1,0 +1,48 @@
+<div class="w-full h-20 bg-base-100 flex items-center">
+  <div class="navbar h-full">
+    <div class="flex-1 pl-2">
+      <h2 class="normal-case text-xl" *ngIf="loggedUser; else adminTitle">
+        Welcome,
+        <span class="font-semibold"
+          >{{ loggedUser.firstName }} {{ loggedUser.lastName }}</span
+        >
+      </h2>
+    </div>
+    <div class="flex-none gap-2">
+      <div class="form-control">
+        <input type="text" placeholder="Search" class="input input-bordered" />
+      </div>
+      <div class="dropdown dropdown-end">
+        <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+          <div class="w-10 rounded-full">
+            <img src="https://placeimg.com/80/80/people" />
+          </div>
+        </label>
+        <ul
+          tabindex="0"
+          class="mt-5 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
+        >
+          <li salusRole [activatedRoles]="['STAFF', 'MEDIC', 'USER']">
+            <a
+              class="justify-between"
+              routerLink="/app/profile/view"
+              routerLinkActive="active"
+            >
+              Profile
+            </a>
+          </li>
+          <li>
+            <a routerLink="/app/profile/password" routerLinkActive="active"
+              >Password Change</a
+            >
+          </li>
+          <li (click)="logout()"><a>Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #adminTitle>
+  <h2 class="normal-case text-xl">Admin Area</h2>
+</ng-template>

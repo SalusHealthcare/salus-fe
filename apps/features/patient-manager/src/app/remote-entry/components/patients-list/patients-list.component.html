@@ -1,0 +1,39 @@
+<div class="flex flex-row justify-between">
+  <h3 class="text-xl">Patients</h3>
+</div>
+
+<mat-table [dataSource]="dataSource">
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{ row.firstName }} {{ row.lastName }}</mat-cell
+    >
+  </ng-container>
+
+  <ng-container matColumnDef="taxCode">
+    <mat-header-cell *matHeaderCellDef>Tax Code</mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{ row.taxCode }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="birthdate">
+    <mat-header-cell *matHeaderCellDef>Birthdate</mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{ row.birthDate.iso | date: 'dd/MM/YYYY' }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="phone">
+    <mat-header-cell *matHeaderCellDef>Phone</mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{ row.telephoneNumber }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+    <mat-cell *matCellDef="let row"> </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</mat-table>

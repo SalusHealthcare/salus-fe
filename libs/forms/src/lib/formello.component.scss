@@ -1,0 +1,73 @@
+
+.formello-row{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.formello-field{
+    margin-left: 1rem;
+}
+
+.formello-empty{
+    flex: 1;
+}
+
+.formello-field:first-child, .formello-radio-button:first-child, .formello-checkbox:first-child {
+    margin-left: 0;
+}
+
+.formello-radio-button, .formello-checkbox {
+    margin-left: 0.5rem;
+}
+
+.formello-field-container{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    padding: .5rem;
+    border-radius: 6px;
+    margin-bottom: 0.25rem;
+}
+
+.formello-checkbox-group{
+    display: flex;
+
+}
+
+.formello-field-container > label{
+    font-weight: 500;
+}
+
+.formello-field-container > mat-error{
+    margin-top: .5rem;
+    font-size: 75%;
+}
+
+mat-error{
+    color: #d87a18 !important
+}
+
+.mat-form-field-wrapper {
+    padding-bottom: 0.5em !important;
+  }
+  
+  .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0.5em 0 !important;
+  }
+  
+  .mat-form-field-appearance-outline .mat-form-field-label {
+    top: 1.34375em;
+  }
+  
+  .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float
+    .mat-form-field-label,
+  .mat-form-field-appearance-outline.mat-form-field-can-float
+    .mat-input-server:focus
+    + .mat-form-field-label-wrapper
+    .mat-form-field-label {
+    top: 1.875em;
+  }
+  

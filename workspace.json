@@ -1,5 +1,27 @@
 {
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
-  "projects": {}
+  "projects": {
+    "features-authentication": "apps/features/authentication",
+    "features-authentication-e2e": "apps/features/authentication-e2e",
+    "features-edit-person": "apps/features/edit-person",
+    "features-edit-person-e2e": "apps/features/edit-person-e2e",
+    "features-password-change": "apps/features/password-change",
+    "features-password-change-e2e": "apps/features/password-change-e2e",
+    "features-patient-manager": "apps/features/patient-manager",
+    "features-patient-manager-e2e": "apps/features/patient-manager-e2e",
+    "features-profile-manager": "apps/features/profile-manager",
+    "features-profile-manager-e2e": "apps/features/profile-manager-e2e",
+    "features-shifts-manager": "apps/features/shifts-manager",
+    "features-shifts-manager-e2e": "apps/features/shifts-manager-e2e",
+    "features-staff-manager": "apps/features/staff-manager",
+    "features-staff-manager-e2e": "apps/features/staff-manager-e2e",
+    "features-videoroom": "apps/features/videoroom",
+    "features-videoroom-e2e": "apps/features/videoroom-e2e",
+    "forms": "libs/forms",
+    "graphql": "libs/graphql",
+    "helpers": "libs/helpers",
+    "shell": "apps/shell",
+    "shell-e2e": "apps/shell-e2e"
+  }
 }

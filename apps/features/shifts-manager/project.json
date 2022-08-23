@@ -1,0 +1,118 @@
+{
+  "projectType": "application",
+  "sourceRoot": "apps/features/shifts-manager/src",
+  "prefix": "salus",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:webpack-browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/features/shifts-manager",
+        "index": "apps/features/shifts-manager/src/index.html",
+        "main": "apps/features/shifts-manager/src/main.ts",
+        "polyfills": "apps/features/shifts-manager/src/polyfills.ts",
+        "tsConfig": "apps/features/shifts-manager/tsconfig.app.json",
+        "assets": [
+          "apps/features/shifts-manager/src/favicon.ico",
+          "apps/features/shifts-manager/src/assets"
+        ],
+        "styles": ["apps/features/shifts-manager/src/styles.css"],
+        "scripts": [],
+        "customWebpackConfig": {
+          "path": "apps/features/shifts-manager/webpack.config.js"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/features/shifts-manager/src/environments/environment.ts",
+              "with": "apps/features/shifts-manager/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all",
+          "customWebpackConfig": {
+            "path": "apps/features/shifts-manager/webpack.prod.config.js"
+          }
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@nrwl/angular:webpack-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "features-shifts-manager:build:production"
+        },
+        "development": {
+          "browserTarget": "features-shifts-manager:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 4209,
+        "publicHost": "http://localhost:4209"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "features-shifts-manager:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/features/shifts-manager/**/*.ts",
+          "apps/features/shifts-manager/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/features/shifts-manager"],
+      "options": {
+        "jestConfig": "apps/features/shifts-manager/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "serve-static": {
+      "executor": "@nrwl/angular:file-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "features-shifts-manager:build",
+        "port": 4209
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "features-shifts-manager:build:development"
+        },
+        "production": {
+          "buildTarget": "features-shifts-manager:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}
