@@ -101,13 +101,21 @@ export class LoginComponent {
 
     this.authenticationService
       .signupPatient({ userInfo, personInfo })
-      .subscribe((result) => {
-        console.log(result);
-        if (result.data) {
-          // sessionStorage.setItem('token', result.data.createPatientUser.token);
-          // this.router.navigate(['app']);
-          this.loginOrSignup = 'login';
-        } else sessionStorage.removeItem('token');
+      .subscribe({
+        next: (result) => {
+          console.log(result);
+          if (result.data?.createPatientUser.person) {
+            // sessionStorage.setItem('token', result.data.createPatientUser.token);
+            // this.router.navigate(['app']);
+            this.loginOrSignup = 'login';
+            alert("You've been successfully registered. Please login.");
+          } else {
+            sessionStorage.removeItem('token');
+          }
+        },
+        error: (error) => {
+          alert('Something went wrong. Please try again. -' + error);
+        },
       });
   }
   //! NON RITORNA IL TOKEN DOPO LA SIGNUP

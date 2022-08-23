@@ -12,6 +12,7 @@ export interface IPerson {
   residence: IAddress;
   domicile: IAddress;
   roles: string[];
+  deletable?: boolean;
   __typename: string;
 }
 

@@ -34,6 +34,12 @@ export class StaffService {
         query allPeople($page: Int!, $size: Int!, $role: String) {
           allPeople(page: $page, size: $size, role: $role) {
             ${PersonGql}
+            ...on Staff{
+              deletable
+            }
+            ...on Medic{
+              deletable
+            }
           }
         }
       `,

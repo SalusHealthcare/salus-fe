@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 import { RemoteEntryComponent } from './entry.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [RemoteEntryComponent],
@@ -14,6 +15,7 @@ import { RemoteEntryComponent } from './entry.component';
         component: RemoteEntryComponent,
       },
     ]),
+    HttpClientModule,
   ],
   providers: [],
 })
