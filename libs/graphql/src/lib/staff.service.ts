@@ -147,12 +147,12 @@ export class StaffService {
   }): Observable<MutationResult<IAddShiftsResponse>> {
     return this.apollo.mutate({
       mutation: gql`
-        mutation addShift(
+        mutation addShifts(
           $personId: ID!
           $startDateTime: String!
           $durationInHours: Int!
         ) {
-          addShift(
+          addShifts(
             personId: $personId
             shifts: [
               {

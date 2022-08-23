@@ -54,7 +54,9 @@ export class ShiftFormModel {
     durationInHoursList()
   );
 
-  constructor(private staffService: StaffService) {
+  constructor(private staffService: StaffService) {}
+
+  getPersonList() {
     this.staffService.getAllStaffsForSelect().subscribe((response) => {
       if (response.data.allPeople) {
         this.personId.options = response.data.allPeople.map((person) => {
@@ -86,5 +88,7 @@ export class AddShiftFormConfig implements IFormelloConfig<ShiftFormModel> {
         ],
       },
     ];
+
+    this.model.getPersonList();
   }
 }

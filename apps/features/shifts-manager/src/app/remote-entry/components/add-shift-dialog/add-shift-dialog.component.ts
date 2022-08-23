@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { AddShiftFormConfig, Formello, ShiftFormModel } from '@salus/forms';
 import { StaffService } from '@salus/graphql';
 import GSTC from 'gantt-schedule-timeline-calendar';
@@ -14,6 +15,7 @@ export class AddShiftDialogComponent implements OnInit {
   shiftForm: Formello<ShiftFormModel>;
 
   constructor(
+    private dialogRef: MatDialogRef<AddShiftDialogComponent>,
     private shiftFormModel: ShiftFormModel,
     private staffService: StaffService
   ) {
@@ -31,12 +33,15 @@ export class AddShiftDialogComponent implements OnInit {
       startDateTime: date(this.shiftForm.getForm().value.startDate)
         .set('hours', this.shiftForm.getForm().value.startTime.split(':')[0])
         .set('minutes', this.shiftForm.getForm().value.startTime.split(':')[1])
-        .toDate()
-        .toDateString(),
+        .format('YYYY-MM-DDTHH:mm:ss'),
       durationInHours: this.shiftForm.getForm().value.durationInHours,
     };
     console.log(props);
 
-    // this.staffService.addShift(props);
+    this.staffService.addShift(props).subscribe((response) => {
+      if (response.data?.addShifts) {
+        this.dialogRef.close(true);
+      }
+    });
   }
 }

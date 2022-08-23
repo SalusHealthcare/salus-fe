@@ -52,8 +52,10 @@ export class CalendarComponent implements OnInit {
   hourSegment = 2;
   daysToShow = 7;
 
-  minDate = date();
-  maxDate = date().add(this.daysToShow, 'days');
+  minDate = date().startOf('day');
+  maxDate = date()
+    .add(this.daysToShow - 1, 'days')
+    .endOf('day');
 
   events: Chart['items'] = {};
   getShiftsQueryRef: QueryRef<IGetShiftsResponse> | undefined;
@@ -178,8 +180,10 @@ export class CalendarComponent implements OnInit {
     this.getShifts();
 
     this.startWeekDate?.valueChanges.subscribe((newDate) => {
-      this.minDate = date(newDate);
-      this.maxDate = date(newDate).add(this.daysToShow, 'days');
+      this.minDate = date(newDate).startOf('day');
+      this.maxDate = date(newDate)
+        .add(this.daysToShow - 1, 'days')
+        .endOf('day');
       this.updateChartWeek();
     });
   }
