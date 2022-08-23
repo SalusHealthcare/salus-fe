@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ApolloQueryResult } from '@apollo/client/core';
 import { Apollo, gql, MutationResult, QueryRef } from 'apollo-angular';
 import { Observable, startWith } from 'rxjs';
 import { CreatePersonInput, IUser } from './models/Authentication.interface';
@@ -8,7 +9,9 @@ import {
 } from './models/Medic.interface';
 import { PersonGql, WrappedPersonGql } from './models/Person.interface';
 import {
+  IAddShiftsResponse,
   IAllPersonResponse,
+  IAllStaffsForSelectResponse,
   ICreateStaffResponse,
   IGetShiftsResponse,
   ShiftForWeeksOnWorker,
@@ -83,8 +86,8 @@ export class StaffService {
     size: number;
     startDate: Date;
     endDate: Date;
-  }): QueryRef<IGetShiftsResponse, any> {
-    return this.apollo.watchQuery({
+  }): Observable<ApolloQueryResult<IGetShiftsResponse>> {
+    return this.apollo.query({
       query: gql`
       ${ShiftForWeeksOnWorker(
         'Staff',
@@ -110,6 +113,66 @@ export class StaffService {
           }
         }
         
+      `,
+      variables: {
+        ...props,
+      },
+    });
+  }
+
+  public getAllStaffsForSelect(): Observable<
+    ApolloQueryResult<IAllStaffsForSelectResponse>
+  > {
+    return this.apollo.query({
+      query: gql`
+        query allPeople($page: Int!, $size: Int!) {
+          allPeople(page: $page, size: $size, role: "STAFF") {
+            id
+            firstName
+            lastName
+          }
+        }
+      `,
+      variables: {
+        page: 0,
+        size: 1000,
+      },
+    });
+  }
+
+  public addShift(props: {
+    personId: string;
+    startDateTime: string;
+    durationInHours: number;
+  }): Observable<MutationResult<IAddShiftsResponse>> {
+    return this.apollo.mutate({
+      mutation: gql`
+        mutation addShift(
+          $personId: ID!
+          $startDateTime: String!
+          $durationInHours: Int!
+        ) {
+          addShift(
+            personId: $personId
+            shifts: [
+              {
+                startDateTime: $startDateTime
+                durationInHours: $durationInHours
+              }
+            ]
+          ) {
+            __typename
+            ... on Person {
+              id
+            }
+            ... on Staff {
+              id
+            }
+            ... on Medic {
+              id
+            }
+          }
+        }
       `,
       variables: {
         ...props,

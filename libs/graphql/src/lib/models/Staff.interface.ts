@@ -35,3 +35,11 @@ fragment ShiftSlotOfWeekFor${worker} on ${worker} {
   }
 }
 `;
+
+export interface IAllStaffsForSelectResponse {
+  allPeople: Pick<IPerson, 'id' | 'firstName' | 'lastName'>[];
+}
+
+export interface IAddShiftsResponse {
+  addShifts: Pick<IPerson, 'id' | '__typename'>[];
+}

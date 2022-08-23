@@ -9,3 +9,4 @@ export * from './forms/person.form';
 export * from './forms/residence.form';
 export * from './forms/domicile.form';
 export * from './forms/password.form';
+export * from './forms/shift.form';
