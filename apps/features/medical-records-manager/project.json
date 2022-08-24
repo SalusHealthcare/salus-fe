@@ -1,0 +1,118 @@
+{
+  "projectType": "application",
+  "sourceRoot": "apps/features/medical-records-manager/src",
+  "prefix": "salus",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:webpack-browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/features/medical-records-manager",
+        "index": "apps/features/medical-records-manager/src/index.html",
+        "main": "apps/features/medical-records-manager/src/main.ts",
+        "polyfills": "apps/features/medical-records-manager/src/polyfills.ts",
+        "tsConfig": "apps/features/medical-records-manager/tsconfig.app.json",
+        "assets": [
+          "apps/features/medical-records-manager/src/favicon.ico",
+          "apps/features/medical-records-manager/src/assets"
+        ],
+        "styles": ["apps/features/medical-records-manager/src/styles.css"],
+        "scripts": [],
+        "customWebpackConfig": {
+          "path": "apps/features/medical-records-manager/webpack.config.js"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/features/medical-records-manager/src/environments/environment.ts",
+              "with": "apps/features/medical-records-manager/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all",
+          "customWebpackConfig": {
+            "path": "apps/features/medical-records-manager/webpack.prod.config.js"
+          }
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@nrwl/angular:webpack-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "features-medical-records-manager:build:production"
+        },
+        "development": {
+          "browserTarget": "features-medical-records-manager:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 4210,
+        "publicHost": "http://localhost:4210"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "features-medical-records-manager:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/features/medical-records-manager/**/*.ts",
+          "apps/features/medical-records-manager/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/features/medical-records-manager"],
+      "options": {
+        "jestConfig": "apps/features/medical-records-manager/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "serve-static": {
+      "executor": "@nrwl/angular:file-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "features-medical-records-manager:build",
+        "port": 4210
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "features-medical-records-manager:build:development"
+        },
+        "production": {
+          "buildTarget": "features-medical-records-manager:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}

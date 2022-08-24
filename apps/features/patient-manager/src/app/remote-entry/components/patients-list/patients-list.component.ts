@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { IPatient, PatientService } from '@salus/graphql';
 
 @Component({
@@ -18,7 +19,7 @@ export class PatientsListComponent implements OnInit {
 
   dataSource = new MatTableDataSource<IPatient>();
 
-  constructor(private patientService: PatientService) {}
+  constructor(private patientService: PatientService, private router: Router) {}
 
   ngOnInit(): void {
     this.getPatients();
@@ -26,12 +27,16 @@ export class PatientsListComponent implements OnInit {
 
   getPatients() {
     this.patientService
-      .getPatients({ page: 0, size: 10 })
+      .getPatients({ page: 0, size: 25 })
       .subscribe((result) => {
         console.log(result);
         if (result.data) {
           this.dataSource = new MatTableDataSource(result.data.patients);
         }
       });
+  }
+
+  goToDetail(row: IPatient) {
+    this.router.navigate(['app', 'patient', row.id]);
   }
 }

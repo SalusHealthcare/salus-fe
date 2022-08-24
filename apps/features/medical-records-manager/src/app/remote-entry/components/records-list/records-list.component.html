@@ -1,0 +1,38 @@
+<mat-table [dataSource]="dataSource">
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{ row.id }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="description">
+    <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <p class="truncate">{{ row.description }}</p>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="insertedAt">
+    <mat-header-cell *matHeaderCellDef>Inserted At</mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{ row.insertedAt.iso | date: 'dd/MM/YYYY' }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="category">
+    <mat-header-cell *matHeaderCellDef>Category</mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{ row.category }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="documentType">
+    <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{ row.documentType }}
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row
+    *matRowDef="let row; columns: displayedColumns"
+    class="hover:bg-slate-100 hover:cursor-pointer"
+  ></mat-row>
+</mat-table>

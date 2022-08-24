@@ -46,3 +46,10 @@ export interface IUpdatePasswordResponse {
     person: IPerson;
   };
 }
+
+export enum UserRole {
+  ADMIN = 'ADMIN',
+  USER = 'USER',
+  MEDIC = 'MEDIC',
+  STAFF = 'STAFF',
+}

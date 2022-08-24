@@ -9,9 +9,6 @@
       </h2>
     </div>
     <div class="flex-none gap-2">
-      <div class="form-control">
-        <input type="text" placeholder="Search" class="input input-bordered" />
-      </div>
       <div class="dropdown dropdown-end">
         <label tabindex="0" class="btn btn-ghost btn-circle avatar">
           <div class="w-10 rounded-full">
@@ -22,7 +19,10 @@
           tabindex="0"
           class="mt-5 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
         >
-          <li salusRole [activatedRoles]="['STAFF', 'MEDIC', 'USER']">
+          <li
+            salusRole
+            [activatedRoles]="[UserRole.STAFF, UserRole.MEDIC, UserRole.USER]"
+          >
             <a
               class="justify-between"
               routerLink="/app/profile/view"

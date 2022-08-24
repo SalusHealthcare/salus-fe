@@ -17,3 +17,5 @@ declare module 'features-profile-manager/Module';
 declare module 'features-password-change/Module';
 
 declare module 'features-shifts-manager/Module';
+
+declare module 'features-medical-records-manager/Module';

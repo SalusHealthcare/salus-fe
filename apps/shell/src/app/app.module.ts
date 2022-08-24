@@ -63,6 +63,13 @@ import { MatNativeDateModule } from '@angular/material/core';
                 ),
             },
             {
+              path: 'medical-records',
+              loadChildren: () =>
+                import('features-medical-records-manager/Module').then(
+                  (m) => m.RemoteEntryModule
+                ),
+            },
+            {
               path: '',
               pathMatch: 'full',
               redirectTo: 'staff',

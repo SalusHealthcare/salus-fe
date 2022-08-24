@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Apollo, gql, MutationResult } from 'apollo-angular';
+import { Apollo, gql, MutationResult, QueryRef } from 'apollo-angular';
 import { Observable } from 'rxjs';
 import {
+  IGetCurrentPatientResponse,
   IGetPatientResponse,
   PatientGql,
   WrappedPatientGql,
@@ -13,6 +14,7 @@ import {
 export class PatientService {
   constructor(private apollo: Apollo) {}
 
+  //ADMIN/STAFF
   public getPatients(props: {
     page: number;
     size: number;
@@ -37,6 +39,22 @@ export class PatientService {
       variables: {
         ...props,
       },
+    });
+  }
+
+  //USER
+  public getCurrentPatient(
+    startDate: string,
+    endDate: string
+  ): QueryRef<IGetCurrentPatientResponse> {
+    return this.apollo.watchQuery({
+      query: gql`
+        query currentPatient {
+          currentPatient {
+            ${PatientGql(startDate, endDate, startDate, endDate)}
+          }
+        }
+      `,
     });
   }
 }

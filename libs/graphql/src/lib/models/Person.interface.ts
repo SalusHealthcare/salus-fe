@@ -1,4 +1,4 @@
-import { CreateAddressInput } from './Authentication.interface';
+import { CreateAddressInput, UserRole } from './Authentication.interface';
 import { IDate, IAddress } from './Shared.interface';
 
 export interface IPerson {
@@ -11,7 +11,7 @@ export interface IPerson {
   telephoneNumber: string;
   residence: IAddress;
   domicile: IAddress;
-  roles: string[];
+  roles: UserRole[];
   deletable?: boolean;
   __typename: string;
 }

@@ -1,27 +1,24 @@
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
-import { CommonService } from '@salus/graphql';
+import { UserRole } from '@salus/graphql';
+import { RoleService } from './role.service';
 
 @Directive({
   selector: '[salusRole]',
 })
 export class RoleDirective implements OnInit {
-  @Input() activatedRoles!: string[];
+  @Input() activatedRoles!: UserRole[];
 
   constructor(
     private elementRef: ElementRef,
-    private commonService: CommonService
+    private roleService: RoleService
   ) {}
 
   ngOnInit(): void {
-    this.commonService.getCurrentUser().valueChanges.subscribe((response) => {
-      if (response.data.currentUser) {
-        const person = response.data.currentUser.person;
-        const roles = person ? person.roles : ['ADMIN'];
-        if (roles.some((role) => this.activatedRoles.includes(role))) {
-          this.elementRef.nativeElement.style.display = 'block';
-        } else {
-          this.elementRef.nativeElement.style.display = 'none';
-        }
+    this.roleService.hasRole(this.activatedRoles).subscribe((hasRole) => {
+      if (hasRole) {
+        this.elementRef.nativeElement.style.display = 'block';
+      } else {
+        this.elementRef.nativeElement.style.display = 'none';
       }
     });
   }
