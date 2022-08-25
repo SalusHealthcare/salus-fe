@@ -1,6 +1,11 @@
 <div class="flex flex-row justify-between mb-2">
   <h3 class="text-xl">Shifts Viewer</h3>
-  <button class="btn btn-ghost" (click)="openAddShiftDialog()">
+  <button
+    class="btn btn-ghost"
+    (click)="openAddShiftDialog()"
+    salusRole
+    [activatedRoles]="[UserRole.ADMIN]"
+  >
     + Add Shift
   </button>
 </div>
@@ -18,5 +23,8 @@
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker disabled="false"></mat-datepicker>
   </mat-form-field>
-  <salus-calendar [startWeekDate]="currentDateForm"></salus-calendar>
+  <salus-calendar
+    [startWeekDate]="currentDateForm"
+    [updateSubject]="update.asObservable()"
+  ></salus-calendar>
 </div>

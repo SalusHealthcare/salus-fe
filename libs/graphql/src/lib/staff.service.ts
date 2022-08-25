@@ -13,6 +13,7 @@ import {
   IAllPersonResponse,
   IAllStaffsForSelectResponse,
   ICreateStaffResponse,
+  IGetSelfShiftsResponse,
   IGetShiftsResponse,
   ShiftForWeeksOnWorker,
 } from './models/Staff.interface';
@@ -133,6 +134,44 @@ export class StaffService {
           }
         }
         
+      `,
+      variables: {
+        ...props,
+      },
+    });
+  }
+
+  public getSelfShifts(props: {
+    startDate: Date;
+    endDate: Date;
+  }): Observable<ApolloQueryResult<IGetSelfShiftsResponse>> {
+    return this.apollo.query({
+      query: gql`
+      ${ShiftForWeeksOnWorker(
+        'Staff',
+        props.startDate.toISOString().split('.')[0],
+        props.endDate.toISOString().split('.')[0]
+      )}
+      ${ShiftForWeeksOnWorker(
+        'Medic',
+        props.startDate.toISOString().split('.')[0],
+        props.endDate.toISOString().split('.')[0]
+      )}
+        query currentUser {
+          currentUser {
+            person {
+              ${PersonGql}
+              __typename
+              ... on Staff {
+                ...ShiftSlotOfWeekForStaff
+                }
+              ... on Medic{
+                speciality
+                ...ShiftSlotOfWeekForMedic
+                }
+            }
+          }
+        }
       `,
       variables: {
         ...props,

@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { RemoteEntryComponent } from './entry.component';
 import { RecordsListComponent } from './components/records-list/records-list.component';
 import { MatTableModule } from '@angular/material/table';
+import { HelpersModule } from '@salus/helpers';
 
 @NgModule({
   declarations: [RemoteEntryComponent, RecordsListComponent],
@@ -23,6 +24,7 @@ import { MatTableModule } from '@angular/material/table';
       },
     ]),
     MatTableModule,
+    HelpersModule,
   ],
   providers: [],
 })

@@ -18,6 +18,7 @@ import {
 } from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AddShiftDialogComponent } from './components/add-shift-dialog/add-shift-dialog.component';
+import { HelpersModule } from '@salus/helpers';
 @NgModule({
   declarations: [
     RemoteEntryComponent,
@@ -45,6 +46,7 @@ import { AddShiftDialogComponent } from './components/add-shift-dialog/add-shift
     MatInputModule,
     MatFormFieldModule,
     MatDialogModule,
+    HelpersModule,
   ],
 })
 export class RemoteEntryModule {}

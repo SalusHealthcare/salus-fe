@@ -21,6 +21,11 @@ export type IWorker = IStaff | IMedic;
 export interface IGetShiftsResponse {
   allPeople: IWorker[];
 }
+export interface IGetSelfShiftsResponse {
+  currentUser: {
+    person: IWorker;
+  };
+}
 
 export const ShiftForWeeksOnWorker = (
   worker: 'Medic' | 'Staff',

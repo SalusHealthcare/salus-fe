@@ -1,5 +1,8 @@
 <div class="flex flex-row justify-between">
   <h3 class="text-xl">Medical Records</h3>
+  <button class="btn btn-ghost" salusRole [activatedRoles]="[UserRole.MEDIC]">
+    +Add Record
+  </button>
 </div>
 
 <mat-table [dataSource]="dataSource">

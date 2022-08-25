@@ -18,6 +18,7 @@ const date = GSTC.api.date; // dayjs function
   styleUrls: ['./records-list.component.css'],
 })
 export class RecordsListComponent implements OnInit {
+  UserRole = UserRole;
   patientData: IPatient | undefined;
   medicalRecords: IMedicalRecord[] = [];
   dataSource: MatTableDataSource<IMedicalRecord> =
