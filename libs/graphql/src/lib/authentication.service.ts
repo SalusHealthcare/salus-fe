@@ -9,7 +9,10 @@ import {
   IUser,
   UpdatePasswordInput,
 } from './models/Authentication.interface';
-import { WrappedPersonGql } from './models/Person.interface';
+import {
+  WrappedPersonGql,
+  WrappedPersonNoRolesGql,
+} from './models/Person.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +29,7 @@ export class AuthenticationService {
         mutation createPatientUser($userInfo: CreateUserInput!, $personInfo: CreatePersonInput!) {
           createPatientUser(userInfo: $userInfo, personInfo: $personInfo) {
             token
-            ${WrappedPersonGql}
+            ${WrappedPersonNoRolesGql}
           }
         }
       `,

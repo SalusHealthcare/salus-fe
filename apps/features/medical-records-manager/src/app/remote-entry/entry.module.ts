@@ -16,13 +16,8 @@ import { MatTableModule } from '@angular/material/table';
         component: RemoteEntryComponent,
         children: [
           {
-            path: 'list',
-            component: RecordsListComponent,
-          },
-          {
             path: '',
-            pathMatch: 'full',
-            redirectTo: 'list',
+            component: RecordsListComponent,
           },
         ],
       },

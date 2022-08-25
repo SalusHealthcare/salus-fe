@@ -28,6 +28,15 @@ import { PatientDetailComponent } from './components/patient-detail/patient-deta
           {
             path: ':id',
             component: PatientDetailComponent,
+            children: [
+              {
+                path: '',
+                loadChildren: () =>
+                  import('features-medical-records-manager/Module').then(
+                    (m) => m.RemoteEntryModule
+                  ),
+              },
+            ],
           },
         ],
       },

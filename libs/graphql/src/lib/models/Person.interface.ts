@@ -42,39 +42,6 @@ export interface UpdatePersonInput {
   domicile: CreateAddressInput;
 }
 
-export const WrappedPersonGql = `
-person {
-    id
-    taxCode
-    email
-    telephoneNumber
-    firstName
-    lastName
-    birthDate{
-        iso
-    }
-    residence {
-      id
-      province
-      city
-      street
-      number
-      postCode
-      country
-    }
-    domicile {
-      id
-      province
-      city
-      street
-      number
-      postCode
-      country
-    }
-    roles
-  }
-`;
-
 export const PersonGql = `
     id
     taxCode
@@ -103,5 +70,17 @@ export const PersonGql = `
       postCode
       country
     }
+`;
+
+export const WrappedPersonGql = `
+person {
+    ${PersonGql}
     roles
+  }
+`;
+
+export const WrappedPersonNoRolesGql = `
+person {
+    ${PersonGql}
+  }
 `;

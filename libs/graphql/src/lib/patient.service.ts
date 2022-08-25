@@ -3,6 +3,7 @@ import { Apollo, gql, MutationResult, QueryRef } from 'apollo-angular';
 import { Observable } from 'rxjs';
 import {
   IGetCurrentPatientResponse,
+  IGetPatientByIdResponse,
   IGetPatientResponse,
   PatientGql,
   WrappedPatientGql,
@@ -55,6 +56,26 @@ export class PatientService {
           }
         }
       `,
+    });
+  }
+
+  //ADMIN/STAFF/MEDIC
+  public getPatient(
+    id: string,
+    startDate: string,
+    endDate: string
+  ): QueryRef<IGetPatientByIdResponse, { patientId: string }> {
+    return this.apollo.watchQuery({
+      query: gql`
+        query patient($patientId: ID!) {
+          patient(patientId: $patientId) {
+            ${PatientGql(startDate, endDate, startDate, endDate)}
+          }
+        }
+      `,
+      variables: {
+        patientId: id,
+      },
     });
   }
 }

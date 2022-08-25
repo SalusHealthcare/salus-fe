@@ -17,6 +17,10 @@ export interface IGetCurrentPatientResponse {
   currentPatient: IPatient;
 }
 
+export interface IGetPatientByIdResponse {
+  patient: IPatient;
+}
+
 export const PatientGql = (
   medicalRecordStartDate: string,
   medicalRecordEndDate: string,
