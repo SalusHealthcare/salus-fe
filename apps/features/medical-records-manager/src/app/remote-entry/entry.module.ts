@@ -6,9 +6,16 @@ import { RemoteEntryComponent } from './entry.component';
 import { RecordsListComponent } from './components/records-list/records-list.component';
 import { MatTableModule } from '@angular/material/table';
 import { HelpersModule } from '@salus/helpers';
+import { AddRecordDialogComponent } from './components/add-record-dialog/add-record-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { FormelloModule } from '@salus/forms';
 
 @NgModule({
-  declarations: [RemoteEntryComponent, RecordsListComponent],
+  declarations: [
+    RemoteEntryComponent,
+    RecordsListComponent,
+    AddRecordDialogComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild([
@@ -24,7 +31,9 @@ import { HelpersModule } from '@salus/helpers';
       },
     ]),
     MatTableModule,
+    MatDialogModule,
     HelpersModule,
+    FormelloModule,
   ],
   providers: [],
 })

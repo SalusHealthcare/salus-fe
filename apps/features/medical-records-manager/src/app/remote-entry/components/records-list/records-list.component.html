@@ -1,11 +1,16 @@
 <div class="flex flex-row justify-between">
   <h3 class="text-xl">Medical Records</h3>
-  <button class="btn btn-ghost" salusRole [activatedRoles]="[UserRole.MEDIC]">
+  <button
+    class="btn btn-ghost"
+    salusRole
+    [activatedRoles]="[UserRole.MEDIC]"
+    (click)="addRecord()"
+  >
     +Add Record
   </button>
 </div>
 
-<mat-table [dataSource]="dataSource">
+<mat-table [dataSource]="dataSource" class="h-full overflow-y-auto">
   <ng-container matColumnDef="id">
     <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
     <mat-cell *matCellDef="let row"> {{ row.id }}</mat-cell>

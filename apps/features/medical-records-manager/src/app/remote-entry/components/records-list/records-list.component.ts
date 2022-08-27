@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import {
@@ -10,6 +11,7 @@ import {
 import { RoleService } from '@salus/helpers';
 import GSTC from 'gantt-schedule-timeline-calendar';
 import { EMPTY, filter, map, switchMap, tap } from 'rxjs';
+import { AddRecordDialogComponent } from '../add-record-dialog/add-record-dialog.component';
 const date = GSTC.api.date; // dayjs function
 
 @Component({
@@ -33,7 +35,8 @@ export class RecordsListComponent implements OnInit {
   constructor(
     private patientService: PatientService,
     private roleService: RoleService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -99,5 +102,27 @@ export class RecordsListComponent implements OnInit {
           this.dataSource = new MatTableDataSource(this.medicalRecords);
         }
       });
+  }
+
+  addRecord() {
+    if (this.patientData) {
+      const dialogRef = this.dialog.open(AddRecordDialogComponent, {
+        minWidth: '50%',
+        data: {
+          patientId: this.patientData.id,
+        },
+      });
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result && this.patientData) {
+          this.patientService
+            .getPatient(
+              this.patientData.id,
+              date().startOf('month').format('YYYY-MM-DDTHH:mm:ss'),
+              date().endOf('month').format('YYYY-MM-DDTHH:mm:ss')
+            )
+            .refetch();
+        }
+      });
+    }
   }
 }
