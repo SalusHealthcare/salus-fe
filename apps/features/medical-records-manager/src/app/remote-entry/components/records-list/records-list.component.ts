@@ -78,7 +78,7 @@ export class RecordsListComponent implements OnInit {
         date().startOf('month').format('YYYY-MM-DDTHH:mm:ss'),
         date().endOf('month').format('YYYY-MM-DDTHH:mm:ss')
       )
-      .valueChanges.subscribe((response) => {
+      .subscribe((response) => {
         if (response.data.currentPatient) {
           this.patientData = response.data.currentPatient;
           this.medicalRecords = this.patientData.medicalRecord;

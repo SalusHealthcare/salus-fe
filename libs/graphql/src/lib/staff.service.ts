@@ -14,6 +14,7 @@ import {
   IAllPersonResponse,
   IAllStaffsForSelectResponse,
   ICreateStaffResponse,
+  ICurrentMedicResponse,
   IGetSelfShiftsResponse,
   IGetShiftsResponse,
   ReservationSlotForWeeksOnMedic,
@@ -122,6 +123,10 @@ export class StaffService {
         props.startDate.toISOString().split('.')[0],
         props.endDate.toISOString().split('.')[0]
       )}
+      ${ReservationSlotForWeeksOnMedic(
+        props.startDate.toISOString().split('.')[0],
+        props.endDate.toISOString().split('.')[0]
+      )}
         query allPeople($page: Int!, $size: Int!) {
           allPeople(page: $page, size: $size, role: "STAFF") {
             ${PersonGql}
@@ -132,6 +137,7 @@ export class StaffService {
             ... on Medic{
               speciality
               ...ShiftSlotOfWeekForMedic
+              ...ReservationSlotOfWeekForMedic
               }
           }
         }
@@ -272,6 +278,43 @@ export class StaffService {
       variables: {
         ...props,
       },
+    });
+  }
+
+  public getCurrentMedic(
+    startDate: string,
+    endDate: string,
+    booked: boolean
+  ): Observable<ApolloQueryResult<ICurrentMedicResponse>> {
+    return this.apollo.query({
+      query: gql`
+        query currentMedic {
+          currentMedic {
+            __typename
+            reservationSlots(startDate: "${startDate}", endDate: "${endDate}", booked: ${booked}) {
+              id
+              startDateTime{ iso }
+              durationInHours
+              booked
+              reservation {
+                id
+                description
+                priority
+                bookedAt { iso }
+                patient{
+                  id
+                  firstName
+                  lastName
+                }
+                reservationSlot{
+                  id
+                  startDateTime { iso }
+                }
+              }
+            }
+          }
+        }
+      `,
     });
   }
 }

@@ -67,3 +67,7 @@ export interface IAddShiftsResponse {
 export interface IAddReservationSlotResponse {
   addReservationSlots: Pick<IMedic, 'id' | '__typename'>[];
 }
+
+export interface ICurrentMedicResponse {
+  currentMedic: IMedic;
+}

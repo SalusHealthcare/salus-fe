@@ -11,6 +11,7 @@ import { FormelloModule } from '@salus/forms';
 import { ReserveDialogComponent } from './components/reserve-dialog/reserve-dialog.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { HelpersModule } from '@salus/helpers';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatButtonModule,
     MatIconModule,
     FormelloModule,
+    HelpersModule,
   ],
   providers: [],
 })

@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import DailyIframe, { DailyCall, DailyCallOptions } from '@daily-co/daily-js';
+import { RoleService } from '@salus/helpers';
 
 @Component({
   selector: 'salus-features-videoroom-entry',
@@ -26,6 +27,7 @@ export class RemoteEntryComponent implements OnDestroy {
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    private roleService: RoleService,
     private http: HttpClient
   ) {
     this.activatedRoute.queryParams.subscribe((params) => {

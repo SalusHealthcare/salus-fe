@@ -52,8 +52,8 @@ export class PatientService {
   public getCurrentPatient(
     startDate: string,
     endDate: string
-  ): QueryRef<IGetCurrentPatientResponse> {
-    return this.apollo.watchQuery({
+  ): Observable<ApolloQueryResult<IGetCurrentPatientResponse>> {
+    return this.apollo.query({
       query: gql`
         query currentPatient {
           currentPatient {
