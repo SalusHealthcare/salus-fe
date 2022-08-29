@@ -44,6 +44,7 @@ export class StaffService {
             ...on Medic{
               deletable
             }
+            roles
           }
         }
       `,
