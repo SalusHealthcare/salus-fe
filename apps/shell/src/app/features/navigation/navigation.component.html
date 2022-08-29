@@ -40,5 +40,12 @@
         My Documents
       </a>
     </li>
+
+    <li salusRole [activatedRoles]="[UserRole.USER]">
+      <a [routerLink]="['/app/reservations']" routerLinkActive="active">
+        <mat-icon>event</mat-icon>
+        Reservation
+      </a>
+    </li>
   </ul>
 </div>

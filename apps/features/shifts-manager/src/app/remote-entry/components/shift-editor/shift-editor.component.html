@@ -8,6 +8,14 @@
   >
     + Add Shift
   </button>
+  <button
+    class="btn btn-ghost"
+    (click)="openAddReservationSlotDialog()"
+    salusRole
+    [activatedRoles]="[UserRole.MEDIC]"
+  >
+    + Add Reservation Slot
+  </button>
 </div>
 
 <div class="flex flex-col gap-4">

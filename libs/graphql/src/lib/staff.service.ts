@@ -9,12 +9,14 @@ import {
 } from './models/Medic.interface';
 import { PersonGql, WrappedPersonGql } from './models/Person.interface';
 import {
+  IAddReservationSlotResponse,
   IAddShiftsResponse,
   IAllPersonResponse,
   IAllStaffsForSelectResponse,
   ICreateStaffResponse,
   IGetSelfShiftsResponse,
   IGetShiftsResponse,
+  ReservationSlotForWeeksOnMedic,
   ShiftForWeeksOnWorker,
 } from './models/Staff.interface';
 
@@ -157,6 +159,10 @@ export class StaffService {
         props.startDate.toISOString().split('.')[0],
         props.endDate.toISOString().split('.')[0]
       )}
+      ${ReservationSlotForWeeksOnMedic(
+        props.startDate.toISOString().split('.')[0],
+        props.endDate.toISOString().split('.')[0]
+      )}
         query currentUser {
           currentUser {
             person {
@@ -168,6 +174,7 @@ export class StaffService {
               ... on Medic{
                 speciality
                 ...ShiftSlotOfWeekForMedic
+                ...ReservationSlotOfWeekForMedic
                 }
             }
           }
@@ -230,6 +237,35 @@ export class StaffService {
             ... on Medic {
               id
             }
+          }
+        }
+      `,
+      variables: {
+        ...props,
+      },
+    });
+  }
+
+  public addReservationSlot(props: {
+    startDateTime: string;
+    durationInHours: number;
+  }): Observable<MutationResult<IAddReservationSlotResponse>> {
+    return this.apollo.mutate({
+      mutation: gql`
+        mutation addReservationSlots(
+          $startDateTime: String!
+          $durationInHours: Int!
+        ) {
+          addReservationSlots(
+            reservationSlots: [
+              {
+                startDateTime: $startDateTime
+                durationInHours: $durationInHours
+              }
+            ]
+          ) {
+            __typename
+            id
           }
         }
       `,

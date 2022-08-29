@@ -41,10 +41,29 @@ fragment ShiftSlotOfWeekFor${worker} on ${worker} {
 }
 `;
 
+export const ReservationSlotForWeeksOnMedic = (
+  startDate: string,
+  endDate: string
+) => `
+fragment ReservationSlotOfWeekForMedic on Medic {
+  reservationSlots(startDate: "${startDate}", endDate: "${endDate}") {
+    id,
+    startDateTime{iso}
+    durationInHours,
+    medic{id,firstName,lastName}
+    booked
+  }
+}
+`;
+
 export interface IAllStaffsForSelectResponse {
   allPeople: Pick<IPerson, 'id' | 'firstName' | 'lastName'>[];
 }
 
 export interface IAddShiftsResponse {
   addShifts: Pick<IPerson, 'id' | '__typename'>[];
+}
+
+export interface IAddReservationSlotResponse {
+  addReservationSlots: Pick<IMedic, 'id' | '__typename'>[];
 }

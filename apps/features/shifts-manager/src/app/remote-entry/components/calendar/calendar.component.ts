@@ -36,11 +36,7 @@ import {
   EMPTY,
   first,
   forkJoin,
-  map,
-  merge,
   Observable,
-  of,
-  Subscription,
   switchMap,
   tap,
 } from 'rxjs';
@@ -167,19 +163,19 @@ export class CalendarComponent implements OnInit {
       plugins: [
         CalendarScroll(),
         TimelinePointer(),
-        Selection(),
-        ItemResizing({
-          ignoreMissingDates: true,
-          allowItemsToGoOutsideTheArea: false,
-          threshold: 0.5,
-        }),
-        ItemMovement({
-          ignoreMissingDates: true,
-          allowItemsToGoOutsideTheArea: false,
-          threshold: {
-            horizontal: 0.5,
-          },
-        }),
+        // Selection(),
+        // ItemResizing({
+        //   ignoreMissingDates: true,
+        //   allowItemsToGoOutsideTheArea: false,
+        //   threshold: 0.5,
+        // }),
+        // ItemMovement({
+        //   ignoreMissingDates: true,
+        //   allowItemsToGoOutsideTheArea: false,
+        //   threshold: {
+        //     horizontal: 0.5,
+        //   },
+        // }),
       ],
     };
   }
@@ -255,6 +251,9 @@ export class CalendarComponent implements OnInit {
             : (response.data as IGetShiftsResponse).allPeople;
           staffsData.forEach((staff) => {
             this.shiftSlotsToEvents(staff);
+            if (staff.__typename === 'Medic') {
+              this.reservationSlotsToEvents(staff as IMedic);
+            }
           });
           this.gstc.state.update('config.chart.items', this.events);
         }
@@ -263,12 +262,35 @@ export class CalendarComponent implements OnInit {
 
   shiftSlotsToEvents(staff: IWorker) {
     staff.shiftSlots.forEach((shift) => {
+      const content = `${staff.lastName} ${staff.firstName} - ${
+        staff.__typename === 'Medic'
+          ? (staff as IMedic).speciality
+          : staff.__typename
+      }`;
       if (this.events)
         this.events[
           GSTC.api.GSTCID(
             `${this.createChartItemIdBasedOnDateString(shift)}-${shift.id}`
           )
-        ] = this.createChartItemFromShift(staff, shift);
+        ] = this.createChartItemFromSlot(staff, shift, content, {
+          background: 'blue',
+        });
+    });
+  }
+
+  reservationSlotsToEvents(medic: IMedic) {
+    medic.reservationSlots.forEach((reservation) => {
+      const content = `Res. - Booked: ${reservation.booked}`;
+      if (this.events)
+        this.events[
+          GSTC.api.GSTCID(
+            `${this.createChartItemIdBasedOnDateString(reservation)}-${
+              reservation.id
+            }`
+          )
+        ] = this.createChartItemFromSlot(medic, reservation, content, {
+          background: 'green',
+        });
     });
   }
 
@@ -277,36 +299,36 @@ export class CalendarComponent implements OnInit {
   }
 
   // Set the start time based on the gantt time grid (always setted to today)
-  mapShiftDateToChartTimeGrid(shift: ITimeSlot) {
-    return date(shift.startDateTime.iso)
+  mapShiftDateToChartTimeGrid(slot: ITimeSlot) {
+    return date(slot.startDateTime.iso)
       .set('year', this.startHour.year())
       .set('month', this.startHour.month())
       .set('date', this.startHour.date());
   }
 
-  createChartItemFromShift(staff: IWorker, shift: ITimeSlot) {
-    const content = `${
-      staff.__typename === 'Medic'
-        ? (staff as IMedic).speciality
-        : staff.__typename
-    }`;
-
-    const startTime = this.mapShiftDateToChartTimeGrid(shift);
-    const endTime = this.mapShiftDateToChartTimeGrid(shift).add(
-      shift.durationInHours,
+  createChartItemFromSlot(
+    staff: IWorker,
+    slot: ITimeSlot,
+    content: string,
+    styles: Record<string, unknown>
+  ) {
+    const startTime = this.mapShiftDateToChartTimeGrid(slot);
+    const endTime = this.mapShiftDateToChartTimeGrid(slot).add(
+      slot.durationInHours,
       'hours'
     );
 
     return {
       id: GSTC.api.GSTCID(
-        `${this.createChartItemIdBasedOnDateString(shift)}-${shift.id}`
+        `${this.createChartItemIdBasedOnDateString(slot)}-${slot.id}`
       ),
-      rowId: GSTC.api.GSTCID(this.createChartItemIdBasedOnDateString(shift)),
-      label: `${staff.lastName} ${staff.firstName} - ${content}`,
+      rowId: GSTC.api.GSTCID(this.createChartItemIdBasedOnDateString(slot)),
+      label: content,
       time: {
         start: startTime.valueOf(),
         end: endTime.valueOf(),
       },
+      styles: styles,
     };
   }
 

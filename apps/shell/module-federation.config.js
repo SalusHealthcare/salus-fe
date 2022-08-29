@@ -10,6 +10,7 @@ module.exports = {
     'features-password-change',
     'features-shifts-manager',
     'features-medical-records-manager',
+    'features-reservations-manager',
   ],
   shared: (libraryName, sharedConfig) => {
     if (libraryName === '@apollo/client/core') {

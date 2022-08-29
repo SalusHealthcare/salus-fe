@@ -70,6 +70,13 @@ import { MatNativeDateModule } from '@angular/material/core';
                 ),
             },
             {
+              path: 'reservations',
+              loadChildren: () =>
+                import('features-reservations-manager/Module').then(
+                  (m) => m.RemoteEntryModule
+                ),
+            },
+            {
               path: '',
               pathMatch: 'full',
               redirectTo: 'staff',

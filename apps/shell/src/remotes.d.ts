@@ -19,3 +19,5 @@ declare module 'features-password-change/Module';
 declare module 'features-shifts-manager/Module';
 
 declare module 'features-medical-records-manager/Module';
+
+declare module 'features-reservations-manager/Module';

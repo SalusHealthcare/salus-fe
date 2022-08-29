@@ -14,6 +14,8 @@
     "features-patient-manager-e2e": "apps/features/patient-manager-e2e",
     "features-profile-manager": "apps/features/profile-manager",
     "features-profile-manager-e2e": "apps/features/profile-manager-e2e",
+    "features-reservations-manager": "apps/features/reservations-manager",
+    "features-reservations-manager-e2e": "apps/features/reservations-manager-e2e",
     "features-shifts-manager": "apps/features/shifts-manager",
     "features-shifts-manager-e2e": "apps/features/shifts-manager-e2e",
     "features-staff-manager": "apps/features/staff-manager",

@@ -1,12 +1,12 @@
 import { UserRole } from './Authentication.interface';
 import { IMedicalRecord } from './MedicalRecord.interface';
 import { IPerson } from './Person.interface';
-import { IReservation } from './Reservation.interface';
+import { IReservation, IReservationSlot } from './Reservation.interface';
 
 export interface IPatient extends IPerson {
   roles: UserRole[];
   medicalRecord: IMedicalRecord[];
-  reservation: IReservation[];
+  reservations: IReservation[];
 }
 
 export interface IGetPatientResponse {
@@ -45,7 +45,17 @@ medicalRecord(page: 0, size: 100, startDate: "${medicalRecordStartDate}", endDat
     documentType
 }
 reservations(startDate: "${reservationsStartDate}", endDate: "${reservationsEndDate}") {
-    id 
+    id
+    description
+    priority
+    reservationSlot{
+      startDateTime{ iso }
+      medic {
+        firstName
+        lastName
+        speciality
+      }
+    }
 }
 `;
 
@@ -54,3 +64,11 @@ export const WrappedPatientGql = `
         ${PatientGql}
     }
 `;
+
+export interface IGetAvailableReservationsResponse {
+  availableReservationSlots: IReservationSlot[];
+}
+
+export interface IReserveSlotResponse {
+  reserve: IReservation;
+}
