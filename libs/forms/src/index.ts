@@ -10,3 +10,7 @@ export * from './forms/residence.form';
 export * from './forms/domicile.form';
 export * from './forms/password.form';
 export * from './forms/shift.form';
+export * from './forms/medical-record.form';
+export * from './forms/reservation-slot.form';
+export * from './forms/reservation-new-filter.form';
+export * from './forms/reserve.form';

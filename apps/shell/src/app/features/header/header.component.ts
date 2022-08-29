@@ -1,7 +1,7 @@
 import { Component, OnInit, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { IPerson } from '@salus/graphql';
+import { IPerson, UserRole } from '@salus/graphql';
 import { HelpersModule } from '@salus/helpers';
 
 @Component({
@@ -10,6 +10,7 @@ import { HelpersModule } from '@salus/helpers';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
+  UserRole = UserRole;
   loggedUser: IPerson;
 
   constructor(private router: Router) {

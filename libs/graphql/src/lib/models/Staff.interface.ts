@@ -21,6 +21,11 @@ export type IWorker = IStaff | IMedic;
 export interface IGetShiftsResponse {
   allPeople: IWorker[];
 }
+export interface IGetSelfShiftsResponse {
+  currentUser: {
+    person: IWorker;
+  };
+}
 
 export const ShiftForWeeksOnWorker = (
   worker: 'Medic' | 'Staff',
@@ -36,10 +41,33 @@ fragment ShiftSlotOfWeekFor${worker} on ${worker} {
 }
 `;
 
+export const ReservationSlotForWeeksOnMedic = (
+  startDate: string,
+  endDate: string
+) => `
+fragment ReservationSlotOfWeekForMedic on Medic {
+  reservationSlots(startDate: "${startDate}", endDate: "${endDate}") {
+    id,
+    startDateTime{iso}
+    durationInHours,
+    medic{id,firstName,lastName}
+    booked
+  }
+}
+`;
+
 export interface IAllStaffsForSelectResponse {
   allPeople: Pick<IPerson, 'id' | 'firstName' | 'lastName'>[];
 }
 
 export interface IAddShiftsResponse {
   addShifts: Pick<IPerson, 'id' | '__typename'>[];
+}
+
+export interface IAddReservationSlotResponse {
+  addReservationSlots: Pick<IMedic, 'id' | '__typename'>[];
+}
+
+export interface ICurrentMedicResponse {
+  currentMedic: IMedic;
 }

@@ -4,6 +4,7 @@ module.exports = {
     './Module':
       'apps/features/patient-manager/src/app/remote-entry/entry.module.ts',
   },
+  remotes: ['features-medical-records-manager'],
   shared: (libraryName, sharedConfig) => {
     if (libraryName === '@apollo/client/core') {
       return {

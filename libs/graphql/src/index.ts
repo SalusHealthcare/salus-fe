@@ -3,6 +3,7 @@ export * from './lib/authentication.service';
 export * from './lib/staff.service';
 export * from './lib/common.service';
 export * from './lib/patient.service';
+export * from './lib/medical-record.service';
 
 export * from './lib/models/Authentication.interface';
 export * from './lib/models/Person.interface';

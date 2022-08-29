@@ -13,7 +13,7 @@ const durationHourItem = (value: number, viewValue: string) => ({
 
 const durationInHoursList = () => {
   const list = [];
-  for (let i = 0.5; i <= 12; i += 0.5) {
+  for (let i = 1; i <= 12; i += 1) {
     list.push(durationHourItem(i, `${i.toString()} hours`));
   }
   return list;

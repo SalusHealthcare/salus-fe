@@ -11,19 +11,17 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 
-import {
-  DateAdapter,
-  MAT_DATE_LOCALE,
-  NativeDateAdapter,
-} from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AddShiftDialogComponent } from './components/add-shift-dialog/add-shift-dialog.component';
+import { HelpersModule } from '@salus/helpers';
+import { AddReservationSlotDialogComponent } from './components/add-reservation-slot-dialog/add-reservation-slot-dialog.component';
 @NgModule({
   declarations: [
     RemoteEntryComponent,
     CalendarComponent,
     ShiftEditorComponent,
     AddShiftDialogComponent,
+    AddReservationSlotDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -45,6 +43,7 @@ import { AddShiftDialogComponent } from './components/add-shift-dialog/add-shift
     MatInputModule,
     MatFormFieldModule,
     MatDialogModule,
+    HelpersModule,
   ],
 })
 export class RemoteEntryModule {}

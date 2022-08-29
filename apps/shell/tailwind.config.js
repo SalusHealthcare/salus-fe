@@ -13,6 +13,10 @@ module.exports = {
     join(__dirname, '../features/profile-manager/src/**/*.html'),
     join(__dirname, '../features/password-change/src/**/*.html'),
     join(__dirname, '../features/shifts-manager/src/**/*.html'),
+    join(__dirname, '../features/shifts-manager/src/**/*.ts'),
+    join(__dirname, '../features/medical-records-manager/src/**/*.html'),
+    join(__dirname, '../features/reservations--manager/src/**/*.html'),
+
     'src/app/*.html',
     'src/app/features/**/*.html',
   ],

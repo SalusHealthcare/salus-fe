@@ -15,3 +15,7 @@ export enum MedicalDocumentType {
   REPORT = 'REPORT',
   LABORATORY_ANALYSIS = 'LABORATORY_ANALYSIS',
 }
+
+export interface IInsertDocumentsResponse {
+  insertDocuments: IMedicalRecord[];
+}

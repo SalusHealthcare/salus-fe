@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { HelpersModule } from '@salus/helpers';
+import { UserRole } from '@salus/graphql';
 
 @Component({
   selector: 'salus-navigation',
@@ -10,6 +11,8 @@ import { HelpersModule } from '@salus/helpers';
   styleUrls: ['./navigation.component.css'],
 })
 export class NavigationComponent implements OnInit {
+  UserRole = UserRole;
+
   constructor() {}
 
   ngOnInit(): void {}

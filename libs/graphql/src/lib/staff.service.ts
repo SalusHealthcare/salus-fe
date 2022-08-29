@@ -9,11 +9,15 @@ import {
 } from './models/Medic.interface';
 import { PersonGql, WrappedPersonGql } from './models/Person.interface';
 import {
+  IAddReservationSlotResponse,
   IAddShiftsResponse,
   IAllPersonResponse,
   IAllStaffsForSelectResponse,
   ICreateStaffResponse,
+  ICurrentMedicResponse,
+  IGetSelfShiftsResponse,
   IGetShiftsResponse,
+  ReservationSlotForWeeksOnMedic,
   ShiftForWeeksOnWorker,
 } from './models/Staff.interface';
 
@@ -40,6 +44,7 @@ export class StaffService {
             ...on Medic{
               deletable
             }
+            roles
           }
         }
       `,
@@ -119,6 +124,10 @@ export class StaffService {
         props.startDate.toISOString().split('.')[0],
         props.endDate.toISOString().split('.')[0]
       )}
+      ${ReservationSlotForWeeksOnMedic(
+        props.startDate.toISOString().split('.')[0],
+        props.endDate.toISOString().split('.')[0]
+      )}
         query allPeople($page: Int!, $size: Int!) {
           allPeople(page: $page, size: $size, role: "STAFF") {
             ${PersonGql}
@@ -129,10 +138,54 @@ export class StaffService {
             ... on Medic{
               speciality
               ...ShiftSlotOfWeekForMedic
+              ...ReservationSlotOfWeekForMedic
               }
           }
         }
         
+      `,
+      variables: {
+        ...props,
+      },
+    });
+  }
+
+  public getSelfShifts(props: {
+    startDate: Date;
+    endDate: Date;
+  }): Observable<ApolloQueryResult<IGetSelfShiftsResponse>> {
+    return this.apollo.query({
+      query: gql`
+      ${ShiftForWeeksOnWorker(
+        'Staff',
+        props.startDate.toISOString().split('.')[0],
+        props.endDate.toISOString().split('.')[0]
+      )}
+      ${ShiftForWeeksOnWorker(
+        'Medic',
+        props.startDate.toISOString().split('.')[0],
+        props.endDate.toISOString().split('.')[0]
+      )}
+      ${ReservationSlotForWeeksOnMedic(
+        props.startDate.toISOString().split('.')[0],
+        props.endDate.toISOString().split('.')[0]
+      )}
+        query currentUser {
+          currentUser {
+            person {
+              ${PersonGql}
+              __typename
+              ... on Staff {
+                ...ShiftSlotOfWeekForStaff
+                }
+              ... on Medic{
+                speciality
+                ...ShiftSlotOfWeekForMedic
+                ...ReservationSlotOfWeekForMedic
+                }
+            }
+          }
+        }
       `,
       variables: {
         ...props,
@@ -197,6 +250,72 @@ export class StaffService {
       variables: {
         ...props,
       },
+    });
+  }
+
+  public addReservationSlot(props: {
+    startDateTime: string;
+    durationInHours: number;
+  }): Observable<MutationResult<IAddReservationSlotResponse>> {
+    return this.apollo.mutate({
+      mutation: gql`
+        mutation addReservationSlots(
+          $startDateTime: String!
+          $durationInHours: Int!
+        ) {
+          addReservationSlots(
+            reservationSlots: [
+              {
+                startDateTime: $startDateTime
+                durationInHours: $durationInHours
+              }
+            ]
+          ) {
+            __typename
+            id
+          }
+        }
+      `,
+      variables: {
+        ...props,
+      },
+    });
+  }
+
+  public getCurrentMedic(
+    startDate: string,
+    endDate: string,
+    booked: boolean
+  ): Observable<ApolloQueryResult<ICurrentMedicResponse>> {
+    return this.apollo.query({
+      query: gql`
+        query currentMedic {
+          currentMedic {
+            __typename
+            reservationSlots(startDate: "${startDate}", endDate: "${endDate}", booked: ${booked}) {
+              id
+              startDateTime{ iso }
+              durationInHours
+              booked
+              reservation {
+                id
+                description
+                priority
+                bookedAt { iso }
+                patient{
+                  id
+                  firstName
+                  lastName
+                }
+                reservationSlot{
+                  id
+                  startDateTime { iso }
+                }
+              }
+            }
+          }
+        }
+      `,
     });
   }
 }

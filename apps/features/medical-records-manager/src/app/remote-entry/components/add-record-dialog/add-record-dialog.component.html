@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Add Medical Record</h1>
+<div mat-dialog-content>
+  <formello [formello]="medicalRecordForm"></formello>
+</div>
+<button
+  class="btn btn-primary"
+  (click)="add()"
+  [disabled]="medicalRecordForm.getForm().invalid"
+>
+  Add
+</button>

@@ -1,0 +1,118 @@
+{
+  "projectType": "application",
+  "sourceRoot": "apps/features/reservations-manager/src",
+  "prefix": "salus",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:webpack-browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/features/reservations-manager",
+        "index": "apps/features/reservations-manager/src/index.html",
+        "main": "apps/features/reservations-manager/src/main.ts",
+        "polyfills": "apps/features/reservations-manager/src/polyfills.ts",
+        "tsConfig": "apps/features/reservations-manager/tsconfig.app.json",
+        "assets": [
+          "apps/features/reservations-manager/src/favicon.ico",
+          "apps/features/reservations-manager/src/assets"
+        ],
+        "styles": ["apps/features/reservations-manager/src/styles.css"],
+        "scripts": [],
+        "customWebpackConfig": {
+          "path": "apps/features/reservations-manager/webpack.config.js"
+        }
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/features/reservations-manager/src/environments/environment.ts",
+              "with": "apps/features/reservations-manager/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all",
+          "customWebpackConfig": {
+            "path": "apps/features/reservations-manager/webpack.prod.config.js"
+          }
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@nrwl/angular:webpack-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "features-reservations-manager:build:production"
+        },
+        "development": {
+          "browserTarget": "features-reservations-manager:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "port": 4211,
+        "publicHost": "http://localhost:4211"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "features-reservations-manager:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/features/reservations-manager/**/*.ts",
+          "apps/features/reservations-manager/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/features/reservations-manager"],
+      "options": {
+        "jestConfig": "apps/features/reservations-manager/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "serve-static": {
+      "executor": "@nrwl/angular:file-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "features-reservations-manager:build",
+        "port": 4211
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "features-reservations-manager:build:development"
+        },
+        "production": {
+          "buildTarget": "features-reservations-manager:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}
